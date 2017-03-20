@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="pane" prefHeight="500.0" prefWidth="650.0" stylesheets="@../media/css/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ems.controller.VoterDetailsController">
+    <children>
+        <Label layoutX="215.0" layoutY="2.0" text="Voter Details">
+            <font>
+                <Font size="30.0" />
+            </font>
+        </Label>
+        <ImageView fitHeight="118.0" fitWidth="115.0" layoutX="500.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../media/images/user.png" />
+            </image>
+        </ImageView>
+        
+        <Label layoutX="30.0" layoutY="61.0" text="Ward No.:" />
+        <Label fx:id="wardNo" layoutX="115.0" layoutY="61.0" prefHeight="17.0" prefWidth="69.0" text="Label">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        
+        <Label layoutX="30.0" layoutY="88.0" text="Ward Sr. No.:" />
+        <Label fx:id="wardSrNo" layoutX="115.0" layoutY="88.0" prefHeight="17.0" prefWidth="69.0" text="Label">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        
+        <Label layoutX="225.0" layoutY="88.0" text="New Sr. No.:" />
+        <Label fx:id="srNo" layoutX="305.0" layoutY="88.0" prefHeight="17.0" prefWidth="163.0" text="Label">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        
+        <Label layoutX="225.0" layoutY="61.0" text="AC Ref. No.:" />
+        <Label fx:id="accNo" layoutX="305.0" layoutY="61.0" prefHeight="17.0" prefWidth="163.0" text="Label">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        
+        <Label layoutX="30.0" layoutY="115.0" text="ID Card No.:" />
+        <Label fx:id="idCardNumber" layoutX="115.0" layoutY="114.0" prefHeight="17.0" prefWidth="149.0" text="Label">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        
+        <Label layoutX="225.0" layoutY="114.0" text="Age:" />
+        <Label fx:id="age" layoutX="305.0" layoutY="114.0" prefHeight="17.0" prefWidth="149.0" text="Label">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        
+        <Label layoutX="30.0" layoutY="139.0" text="Voter Name: " />
+        <Label fx:id="name" layoutX="115.0" layoutY="139.0" prefHeight="17.0" prefWidth="351.0" text="Label">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        <Label fx:id="nameUnicode" layoutX="115.0" layoutY="167.0" prefHeight="17.0" prefWidth="351.0" text="Label" >
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        <Label layoutX="30.0" layoutY="194.0" text="Address:" />
+        <Label fx:id="address" alignment="TOP_LEFT" layoutX="115.0" layoutY="194.0" prefHeight="102.0" prefWidth="171.0" text="Label" wrapText="true">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        
+        <Label layoutX="325.0" layoutY="194.0" text="Matdan Kendra:" />
+        <Label fx:id="boothName" alignment="TOP_LEFT" layoutX="434.0" layoutY="194.0" prefHeight="102.0" prefWidth="180.0" text="Label" wrapText="true">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </Label>
+        
+        <Label layoutX="30.0" layoutY="308.0" text="Email Id:" />
+        <TextField fx:id="emailId" layoutX="115.0" layoutY="304.0" prefHeight="25.0" prefWidth="496.0" promptText="Email Id"  />
+        
+        <Label layoutX="30.0" layoutY="348.0" text="Mobile No.:" />
+        <TextField fx:id="mobileNumber" layoutX="115.0" layoutY="344.0" prefHeight="25.0" prefWidth="174.0" promptText="Mobile No."  />
+        
+        <Label layoutX="325.0" layoutY="349.0" text="Alternate Mobile No.:" />
+        <TextField fx:id="altMobileNumber" layoutX="455.0" layoutY="345.0" prefHeight="25.0" prefWidth="163.0" promptText="Alternate Mobile No."  />
+               
+        <Label layoutX="30.0" layoutY="387.0" text="Date of Birth:" />        
+        <DatePicker fx:id="dateOfBirth" layoutX="115.0" layoutY="381.0" promptText="dd-mm-yyyy" />
+        
+        <Label layoutX="325.0" layoutY="387.0" text="Color Code:" />
+        <ComboBox fx:id="color" layoutX="455.0" layoutY="383.0" prefHeight="25.0" prefWidth="163.0" promptText="Choose Color" />
+        
+        <Label layoutX="30.0" layoutY="424.0" text="Gender:" />
+        <ComboBox fx:id="gender" layoutX="115.0" layoutY="420.0" prefHeight="25.0" prefWidth="174.0" />
+         
+        <Label layoutX="325.0" layoutY="424.0" text="Community:" />        
+        <ComboBox fx:id="community" layoutX="455.0" layoutY="420.0" prefHeight="25.0" prefWidth="163.0" promptText="Choose Community" />
+        
+        <Button fx:id="updateButton" layoutX="246.0" layoutY="461.0" mnemonicParsing="false" onAction="#updateAction" text="Update" />
+        <Button fx:id="cancelButton" layoutX="345.0" layoutY="461.0" mnemonicParsing="false" onAction="#cancelAction" text="Cancel" />
+        
+        
+        
+    </children>
+   <stylesheets>
+      <URL value="@../media/css/material-fx-v0_3.css" />
+      <URL value="@../media/css/materialfx-toggleswitch.css" />
+   </stylesheets>
+</AnchorPane>
