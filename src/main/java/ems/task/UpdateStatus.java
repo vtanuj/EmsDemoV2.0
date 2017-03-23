@@ -23,6 +23,7 @@ public class UpdateStatus extends Task<Void> {
 
     ObservableList<MyModelSimpleStringProperty> list;
     String status;
+    private boolean dataUpdated;
 
     public UpdateStatus(Stage stage, Window window, ObservableList<MyModelSimpleStringProperty> list,
             String status) {
@@ -34,9 +35,19 @@ public class UpdateStatus extends Task<Void> {
                 stage.hide();
             }
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Okay");
-            alert.showAndWait();
+            if (dataUpdated) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Updation");
+                alert.setHeaderText("Record updation unsuccessful!");
+                alert.setContentText("Unable to update the Voter data.");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Updation");
+                alert.setHeaderText("Record updation successful!");
+                alert.setContentText("The requested Voter data was updated successfully.");
+                alert.showAndWait();
+            }
 
             ((Node) (event.getSource())).getScene().getWindow().hide();
         });
@@ -44,7 +55,7 @@ public class UpdateStatus extends Task<Void> {
 
     @Override
     protected Void call() throws Exception {
-        DataHandler.updateVoterStatus(list, status);
+        dataUpdated = DataHandler.updateVoterStatus(list, status);
         return null;
     }
 

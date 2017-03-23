@@ -26,7 +26,6 @@
         </Pane>
     </children>
     <stylesheets>
-        <URL value="@../media/css/material-fx-v0_3.css" />
-        <URL value="@../media/css/materialfx-toggleswitch.css" />
+        <URL value="@../media/css/MyTheme.css" />
     </stylesheets>
 </AnchorPane>

@@ -13,6 +13,8 @@ import java.util.List;
 import ems.model.MyModel;
 import ems.model.MyModelConverter;
 import ems.model.MyModelSimpleStringProperty;
+import ems.task.Dashboard;
+import ems.task.DashboardReports;
 import ems.task.DownloadReport;
 import ems.task.GetData;
 import ems.task.Reports;
@@ -50,6 +52,7 @@ import java.io.File;
 import java.util.LinkedList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -72,6 +75,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import org.apache.commons.lang3.StringUtils;
 import org.controlsfx.control.table.TableFilter;
 import org.controlsfx.glyphfont.FontAwesome;
 
@@ -82,7 +86,22 @@ import org.controlsfx.glyphfont.FontAwesome;
  */
 public class HomeController implements Initializable {
 
+    @FXML
+    private TableView<MyModelSimpleStringProperty> dashboardTable;
+    @FXML
+    private TableColumn dashboardTableColumn1;
+    @FXML
+    private TableColumn dashboardTableColumn2;
+    @FXML
+    private TableColumn dashboardTableColumn3;
+
+    public static ObservableList<MyModelSimpleStringProperty> dashboardTableData
+            = FXCollections.observableArrayList();
+
+    String dashboardReportType = "1";
+
     Stage dialog;
+
     @FXML
     private TreeView<String> treeView;
     @FXML
@@ -148,6 +167,30 @@ public class HomeController implements Initializable {
     //dashboard
     @FXML
     private AnchorPane dashboard;
+    @FXML
+    private Label wardNumber;
+    @FXML
+    private Label wardName;
+    @FXML
+    private Label boothNumber;
+
+    @FXML
+    private AnchorPane dashboard1;
+    @FXML
+    private Label votersCount;
+
+    @FXML
+    private AnchorPane dashboard2;
+    @FXML
+    private Label birthdayCount;
+    @FXML
+    private Label familyCount;
+    @FXML
+    private AnchorPane dashboard3;
+    @FXML
+    private PieChart pieChart2;
+    private final ObservableList<PieChart.Data> pieChartData2 = FXCollections.observableArrayList();
+
     @FXML
     private BarChart<String, Number> barChart;
     @FXML
@@ -282,6 +325,10 @@ public class HomeController implements Initializable {
     private TableColumn reportColumn11;
     public static ObservableList<MyModelSimpleStringProperty> reportTableData = FXCollections.observableArrayList();
 
+    int loadCounter1 = 0;
+    int loadCounter2 = 0;
+    int loadCounter3 = 0;
+
     /**
      * Initializes the controller class.
      *
@@ -292,6 +339,9 @@ public class HomeController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         //load Anchor Panes
         dashboard.setVisible(true);
+        dashboard1.setVisible(false);
+        dashboard2.setVisible(false);
+        dashboard3.setVisible(false);
         reports.setVisible(false);
         voterSearchUpdate.setVisible(false);
         electionHistory.setVisible(false);
@@ -301,7 +351,7 @@ public class HomeController implements Initializable {
         //Load Tree Items
         loadTreeItems();
         //Load Dashboard Values
-        loadDashboard();
+        loadDashboard(0);
         //
 
         wardNo.setConverter(new MyModelConverter());
@@ -310,7 +360,7 @@ public class HomeController implements Initializable {
             wardNoData.add(report);
         }
         wardNo.setItems(wardNoData);
-        
+
         electionHistoryGo.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.CHECK, 16, Color.GREEN));
         electionHistoryClear.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.CLOSE, 16, Color.RED));
         exportDatabase.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.DATABASE, 16, Color.RED));
@@ -331,6 +381,14 @@ public class HomeController implements Initializable {
         statusUpdateTable.setItems(statusUpdateTableData);
 
         TableFilter filter4 = new TableFilter(statusUpdateTable);
+
+        dashboardTableColumn1.setCellValueFactory(new PropertyValueFactory<>("obj1"));
+        dashboardTableColumn2.setCellValueFactory(new PropertyValueFactory<>("obj2"));
+        dashboardTableColumn3.setCellValueFactory(new PropertyValueFactory<>("obj3"));
+
+        dashboardTable.setItems(dashboardTableData);
+
+        TableFilter filter5 = new TableFilter(dashboardTable);
 
         radioName.setUserData("a");
         radioID.setUserData("b");
@@ -624,8 +682,9 @@ public class HomeController implements Initializable {
             TreeItem<String> nodeItemA = new TreeItem<>("Dashboard");
             TreeItem<String> nodeItemA1 = new TreeItem<>("Ward Summary");
             TreeItem<String> nodeItemA2 = new TreeItem<>("Voter Summary");
-            TreeItem<String> nodeItemA3 = new TreeItem<>("Details");
-            nodeItemA.getChildren().addAll(nodeItemA1, nodeItemA2, nodeItemA3);
+            TreeItem<String> nodeItemA3 = new TreeItem<>("Others");
+            TreeItem<String> nodeItemA4 = new TreeItem<>("Details");
+            nodeItemA.getChildren().addAll(nodeItemA1, nodeItemA2, nodeItemA3, nodeItemA4);
 
             TreeItem<String> nodeItemB = new TreeItem<>("Election History");
 
@@ -649,8 +708,8 @@ public class HomeController implements Initializable {
             TreeItem<String> nodeItemH1 = new TreeItem<>("Preferences");
             nodeItemH.getChildren().addAll(nodeItemH1);
 
-            rootNode.getChildren().addAll(nodeItemA, nodeItemB, nodeItemC, nodeItemD, nodeItemE,
-                    nodeItemF, nodeItemG, nodeItemH);
+            rootNode.getChildren().addAll(nodeItemA, nodeItemC, nodeItemD, nodeItemE,
+                    nodeItemF, nodeItemB, nodeItemG, nodeItemH);
 
             treeView.setRoot(rootNode);
         } catch (Exception e) {
@@ -658,78 +717,90 @@ public class HomeController implements Initializable {
         }
     }
 
-    public void loadDashboard() {
-        barChartData.clear();
-        pieChartData.clear();
-        pieChartData1.clear();
+    public void loadDashboard(int dashboardType) {
 
-        barChart.getData().clear();
-        barChart.layout();
+        MyModel dashboardData = DataHandler.getDashboardData("4").get(0);
+        switch (dashboardType) {
+            case 0:
+                loadCounter1++;
+                wardNumber.setText(dashboardData.getObj1());
+                wardName.setText(dashboardData.getObj2());
+                boothNumber.setText(dashboardData.getObj4());
+                pieChartData1.clear();
+                List<MyModel> colorWistList = DataHandler.getDashboardData("3");
+                for (MyModel s : colorWistList) {
+                    pieChartData1.add(new PieChart.Data(s.getObj1(), Double.valueOf(s.getObj2())));
+                }
 
-        List<MyModel> castWistList = DataHandler.getDashboardData("1");
-        List<MyModel> genderWistList = DataHandler.getDashboardData("2");
-        List<MyModel> colorWistList = DataHandler.getDashboardData("3");
+                pieChartData1.forEach(data
+                        -> data.nameProperty().bind(
+                                Bindings.concat(data.getName(), " ", data.pieValueProperty().intValue(), " Voters")
+                        )
+                );
 
-        XYChart.Series<String, Number> series = new XYChart.Series<>();
-        for (MyModel s : castWistList) {
-            barChartData.add(s.getObj1());
-            series.getData().add(new XYChart.Data<>(s.getObj1(), Double.valueOf(s.getObj2())));
+                if (loadCounter1 == 1) {
+                    pieChart1.setData(pieChartData1);
+                }
+                break;
+            case 1:
+                loadCounter2++;
+                List<MyModel> castWistList = DataHandler.getDashboardData("1");
+                votersCount.setText(dashboardData.getObj3());
+                barChartData.clear();
+                barChart.getData().clear();
+                barChart.layout();
+                XYChart.Series<String, Number> series = new XYChart.Series<>();
+                for (MyModel s : castWistList) {
+                    barChartData.add(s.getObj1());
+                    series.getData().add(new XYChart.Data<>(s.getObj1(), Double.valueOf(s.getObj2())));
+                }
+                xAxis.setCategories(barChartData);
+                barChart.getData().add(series);
+                for (final XYChart.Series<String, Number> series1 : barChart.getData()) {
+                    for (final XYChart.Data<String, Number> data : series1.getData()) {
+                        Tooltip tooltip = new Tooltip();
+                        tooltip.setText(String.valueOf(data.getYValue().intValue()));
+                        Tooltip.install(data.getNode(), tooltip);
+                    }
+                }
+
+                pieChartData.clear();
+                List<MyModel> genderWistList = DataHandler.getDashboardData("2");
+
+                for (MyModel s : genderWistList) {
+                    pieChartData.add(new PieChart.Data(s.getObj1(), Double.valueOf(s.getObj2())));
+                }
+                pieChartData.forEach(data
+                        -> data.nameProperty().bind(
+                                Bindings.concat(data.getName(), " ", data.pieValueProperty().intValue(), " Voters")
+                        )
+                );
+
+                if (loadCounter2 == 1) {
+                    pieChart.setData(pieChartData);
+                }
+                break;
+            case 2:
+                loadCounter3++;
+                birthdayCount.setText(dashboardData.getObj5());
+                familyCount.setText(dashboardData.getObj6());
+                pieChartData2.clear();
+                List<MyModel> ageWistList = DataHandler.getDashboardData("5");
+                for (MyModel s : ageWistList) {
+                    pieChartData2.add(new PieChart.Data(s.getObj1(), Double.valueOf(s.getObj2())));
+                }
+                pieChartData2.forEach(data
+                        -> data.nameProperty().bind(
+                                Bindings.concat(data.getName(), " ", data.pieValueProperty().intValue(), " Voters")
+                        )
+                );
+                if (loadCounter3 == 1) {
+                    pieChart2.setData(pieChartData2);
+                }
+                break;
+            case 3:
+                break;
         }
-        for (MyModel s : genderWistList) {
-            pieChartData.add(new PieChart.Data(s.getObj1(), Double.valueOf(s.getObj2())));
-        }
-        for (MyModel s : colorWistList) {
-            pieChartData1.add(new PieChart.Data(s.getObj1(), Double.valueOf(s.getObj2())));
-        }
-
-        xAxis.setCategories(barChartData);
-        barChart.getData().add(series);
-
-//        pieChart.setTitle("Gender Wise");
-//        pieChart1.setTitle("Color Wise");
-        pieChart.setLegendVisible(false);
-        pieChart1.setLegendVisible(false);
-        barChart.setLegendVisible(false);
-
-        pieChartData.forEach(data
-                -> data.nameProperty().bind(
-                        Bindings.concat(data.getName(), " ", data.pieValueProperty(), "")
-                )
-        );
-        pieChart.setData(pieChartData);
-
-        pieChartData1.forEach(data
-                -> data.nameProperty().bind(
-                        Bindings.concat(data.getName(), " ", data.pieValueProperty(), "")
-                )
-        );
-        pieChart1.setData(pieChartData1);
-
-        for (final XYChart.Series<String, Number> series1 : barChart.getData()) {
-            for (final XYChart.Data<String, Number> data : series1.getData()) {
-                Tooltip tooltip = new Tooltip();
-                tooltip.setText(data.getYValue().toString());
-                Tooltip.install(data.getNode(), tooltip);
-            }
-        }
-
-//        Timeline tl = new Timeline();
-//        tl.getKeyFrames().add(
-//                new KeyFrame(Duration.millis(500),
-//                        new EventHandler<ActionEvent>() {
-//                    @Override
-//                    public void handle(ActionEvent actionEvent) {
-//                        for (XYChart.Series<String, Number> series : barChart.getData()) {
-//                            for (XYChart.Data<String, Number> data : series.getData()) {
-//                                data.setYValue(Math.random() * 1000);
-//                            }
-//                        }
-//                    }
-//                }
-//                ));
-//        tl.setCycleCount(Animation.INDEFINITE);
-//        tl.setAutoReverse(true);
-//        tl.play();
     }
 
     @FXML
@@ -738,26 +809,63 @@ public class HomeController implements Initializable {
         if (node instanceof Text || (node instanceof TreeCell && ((TreeCell) node).getText() != null)) {
             String name = (String) ((TreeItem) treeView.getSelectionModel().getSelectedItem()).getValue();
             switch (name) {
-                case "Voter Summary":
-                    dashboard.setVisible(true);
-                    reports.setVisible(false);
-                    voterSearchUpdate.setVisible(false);
-                    electionHistory.setVisible(false);
-                    exportDB.setVisible(false);
-                    importDB.setVisible(false);
-                    statusUpdate.setVisible(false);
-                    break;
                 case "Ward Summary":
                     dashboard.setVisible(true);
+                    dashboard1.setVisible(false);
+                    dashboard2.setVisible(false);
+                    dashboard3.setVisible(false);
                     reports.setVisible(false);
                     voterSearchUpdate.setVisible(false);
                     electionHistory.setVisible(false);
                     exportDB.setVisible(false);
                     importDB.setVisible(false);
                     statusUpdate.setVisible(false);
+                    loadDashboard(0);
+                    break;
+                case "Voter Summary":
+                    dashboard.setVisible(false);
+                    dashboard1.setVisible(true);
+                    dashboard2.setVisible(false);
+                    dashboard3.setVisible(false);
+                    reports.setVisible(false);
+                    voterSearchUpdate.setVisible(false);
+                    electionHistory.setVisible(false);
+                    exportDB.setVisible(false);
+                    importDB.setVisible(false);
+                    statusUpdate.setVisible(false);
+                    loadDashboard(1);
+                    break;
+                case "Others":
+                    dashboard.setVisible(false);
+                    dashboard1.setVisible(false);
+                    dashboard2.setVisible(true);
+                    dashboard3.setVisible(false);
+                    reports.setVisible(false);
+                    voterSearchUpdate.setVisible(false);
+                    electionHistory.setVisible(false);
+                    exportDB.setVisible(false);
+                    importDB.setVisible(false);
+                    statusUpdate.setVisible(false);
+                    loadDashboard(2);
+                    break;
+                case "Details":
+                    dashboard.setVisible(false);
+                    dashboard1.setVisible(false);
+                    dashboard2.setVisible(false);
+                    dashboard3.setVisible(true);
+                    reports.setVisible(false);
+                    voterSearchUpdate.setVisible(false);
+                    electionHistory.setVisible(false);
+                    exportDB.setVisible(false);
+                    importDB.setVisible(false);
+                    statusUpdate.setVisible(false);
+                    loadDashboard(3);
                     break;
                 case "Election History":
                     dashboard.setVisible(false);
+                    dashboard1.setVisible(false);
+                    dashboard2.setVisible(false);
+                    dashboard3.setVisible(false);
                     reports.setVisible(false);
                     voterSearchUpdate.setVisible(false);
                     electionHistory.setVisible(true);
@@ -767,6 +875,9 @@ public class HomeController implements Initializable {
                     break;
                 case "Search & Update":
                     dashboard.setVisible(false);
+                    dashboard1.setVisible(false);
+                    dashboard2.setVisible(false);
+                    dashboard3.setVisible(false);
                     reports.setVisible(false);
                     voterSearchUpdate.setVisible(true);
                     electionHistory.setVisible(false);
@@ -776,6 +887,9 @@ public class HomeController implements Initializable {
                     break;
                 case "Status Update":
                     dashboard.setVisible(false);
+                    dashboard1.setVisible(false);
+                    dashboard2.setVisible(false);
+                    dashboard3.setVisible(false);
                     reports.setVisible(false);
                     voterSearchUpdate.setVisible(false);
                     electionHistory.setVisible(false);
@@ -785,6 +899,9 @@ public class HomeController implements Initializable {
                     break;
                 case "Reports":
                     dashboard.setVisible(false);
+                    dashboard1.setVisible(false);
+                    dashboard2.setVisible(false);
+                    dashboard3.setVisible(false);
                     reports.setVisible(true);
                     voterSearchUpdate.setVisible(false);
                     electionHistory.setVisible(false);
@@ -794,6 +911,9 @@ public class HomeController implements Initializable {
                     break;
                 case "Database Backup":
                     dashboard.setVisible(false);
+                    dashboard1.setVisible(false);
+                    dashboard2.setVisible(false);
+                    dashboard3.setVisible(false);
                     reports.setVisible(false);
                     voterSearchUpdate.setVisible(false);
                     electionHistory.setVisible(false);
@@ -803,6 +923,9 @@ public class HomeController implements Initializable {
                     break;
                 case "Database Import":
                     dashboard.setVisible(false);
+                    dashboard1.setVisible(false);
+                    dashboard2.setVisible(false);
+                    dashboard3.setVisible(false);
                     reports.setVisible(false);
                     voterSearchUpdate.setVisible(false);
                     electionHistory.setVisible(false);
@@ -1628,8 +1751,6 @@ public class HomeController implements Initializable {
         electionHistory.setVisible(false);
         exportDB.setVisible(false);
         importDB.setVisible(false);
-        //Load Dashboard Values
-        loadDashboard();
     }
 
     @FXML
@@ -1708,4 +1829,120 @@ public class HomeController implements Initializable {
         }
     }
 
+    @FXML
+    private void onDashboardGenderClick(ActionEvent event) {
+        dashboardReportType = "1";
+        Node source = (Node) event.getSource();
+        Window window = source.getScene().getWindow();
+        dashboardTableColumn1.setText("Gender");
+        dashboardTableColumn2.setText("No. of Voters");
+        dashboardTableColumn3.setText("Percentage");
+        dashboardTableColumn1.setVisible(true);
+        dashboardTableColumn2.setVisible(true);
+        dashboardTableColumn3.setVisible(true);
+        dialog = JavaFXUtils.dialog(dialog, window);
+        Dashboard task = new Dashboard(dialog, window, "1");
+        new Thread(task).start();
+        JavaFXUtils.dim(window);
+        dialog.show();
+    }
+
+    @FXML
+    private void onDashboardAgeClick(ActionEvent event) {
+        dashboardReportType = "2";
+        Node source = (Node) event.getSource();
+        Window window = source.getScene().getWindow();
+        dashboardTableColumn1.setText("Age");
+        dashboardTableColumn2.setText("No. of Voters");
+        dashboardTableColumn3.setText("Percentage");
+        dashboardTableColumn1.setVisible(true);
+        dashboardTableColumn2.setVisible(true);
+        dashboardTableColumn3.setVisible(true);
+        dialog = JavaFXUtils.dialog(dialog, window);
+        Dashboard task = new Dashboard(dialog, window, "2");
+        new Thread(task).start();
+        JavaFXUtils.dim(window);
+        dialog.show();
+    }
+
+    @FXML
+    private void onDashboardCommunityClick(ActionEvent event) {
+        dashboardReportType = "3";
+        Node source = (Node) event.getSource();
+        Window window = source.getScene().getWindow();
+        dashboardTableColumn1.setText("Community");
+        dashboardTableColumn2.setText("No. of Voters");
+        dashboardTableColumn3.setText("Percentage");
+        dashboardTableColumn1.setVisible(true);
+        dashboardTableColumn2.setVisible(true);
+        dashboardTableColumn3.setVisible(true);
+        dialog = JavaFXUtils.dialog(dialog, window);
+        Dashboard task = new Dashboard(dialog, window, "3");
+        new Thread(task).start();
+        JavaFXUtils.dim(window);
+        dialog.show();
+    }
+
+    @FXML
+    private void onDashboardSurnameClick(ActionEvent event) {
+        dashboardReportType = "4";
+        Node source = (Node) event.getSource();
+        Window window = source.getScene().getWindow();
+        dashboardTableColumn1.setText("Surname");
+        dashboardTableColumn2.setText("Ward Sr No");
+        dashboardTableColumn3.setText("New Sr No.");
+        dashboardTableColumn1.setVisible(true);
+        dashboardTableColumn2.setVisible(true);
+        dashboardTableColumn3.setVisible(true);
+        dialog = JavaFXUtils.dialog(dialog, window);
+        Dashboard task = new Dashboard(dialog, window, "4");
+        new Thread(task).start();
+        JavaFXUtils.dim(window);
+        dialog.show();
+    }
+
+    @FXML
+    private void onDashboardColorClick(ActionEvent event) {
+        dashboardReportType = "5";
+        Node source = (Node) event.getSource();
+        Window window = source.getScene().getWindow();
+        dashboardTableColumn1.setText("Colour");
+        dashboardTableColumn2.setText("No. of Voters");
+        dashboardTableColumn3.setText("Percentage");
+        dashboardTableColumn1.setVisible(true);
+        dashboardTableColumn2.setVisible(true);
+        dashboardTableColumn3.setVisible(true);
+        dialog = JavaFXUtils.dialog(dialog, window);
+        Dashboard task = new Dashboard(dialog, window, "5");
+        new Thread(task).start();
+        JavaFXUtils.dim(window);
+        dialog.show();
+    }
+
+    @FXML
+    private void onDashboardTableClicked(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            Node node = ((Node) event.getTarget()).getParent();
+            Node source = (Node) event.getSource();
+            Window window = source.getScene().getWindow();
+            TableRow row;
+            if (node instanceof TableRow) {
+                row = (TableRow) node;
+            } else {
+                // clicking on text part
+                row = (TableRow) node.getParent();
+            }
+            try {
+                MyModelSimpleStringProperty m = (MyModelSimpleStringProperty) row.getItem();
+                dialog = JavaFXUtils.dialog(dialog, window);
+                DashboardReports task = new DashboardReports(dialog, window, dashboardReportType, m.getObj1());
+                new Thread(task).start();
+                JavaFXUtils.dim(window);
+                dialog.show();
+            } catch (Exception ex) {
+                log.error(ex.getMessage());
+                JavaFXUtils.exceptionDialog(ex);
+            }
+        }
+    }
 }

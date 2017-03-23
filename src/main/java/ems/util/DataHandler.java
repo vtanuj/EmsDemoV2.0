@@ -5,6 +5,7 @@
  */
 package ems.util;
 
+import static ems.controller.HomeController.dashboardTableData;
 import static ems.main.Ems.log;
 import ems.model.MyModel;
 import ems.model.MyModelSimpleStringProperty;
@@ -33,6 +34,18 @@ import static ems.util.Constants.Q_S_COMMUNITY_STATUS;
 import static ems.util.Constants.Q_S_COMMUNITY_STATUS_;
 import static ems.util.Constants.Q_S_COMMUNITY_WISE;
 import static ems.util.Constants.Q_S_COMMUNITY_WISE_;
+import static ems.util.Constants.Q_S_DASHBOARD1;
+import static ems.util.Constants.Q_S_DASHBOARD1_;
+import static ems.util.Constants.Q_S_DASHBOARD2;
+import static ems.util.Constants.Q_S_DASHBOARD2_;
+import static ems.util.Constants.Q_S_DASHBOARD3;
+import static ems.util.Constants.Q_S_DASHBOARD3_;
+import static ems.util.Constants.Q_S_DASHBOARD4;
+import static ems.util.Constants.Q_S_DASHBOARD4_;
+import static ems.util.Constants.Q_S_DASHBOARD5;
+import static ems.util.Constants.Q_S_DASHBOARD5_;
+import static ems.util.Constants.Q_S_DASHBOARD_1;
+import static ems.util.Constants.Q_S_DASHBOARD_2;
 import static ems.util.Constants.Q_S_DASHBOARD_CAST_WISE;
 import static ems.util.Constants.Q_S_DASHBOARD_COLOR_WISE;
 import static ems.util.Constants.Q_S_DASHBOARD_GENDER_WISE;
@@ -100,6 +113,12 @@ public class DataHandler {
             case "3":
                 sqlQuery = Q_S_DASHBOARD_COLOR_WISE;
                 break;
+            case "4":
+                sqlQuery = Q_S_DASHBOARD_1;
+                break;
+            case "5":
+                sqlQuery = Q_S_DASHBOARD_2;
+                break;
         }
         Connection con = getConnection();
         Statement s = null;
@@ -108,7 +127,15 @@ public class DataHandler {
             s = con.createStatement();
             rs = s.executeQuery(sqlQuery);
             while (rs.next()) {
-                myModels.add(new MyModel(rs.getString(1), rs.getString(2)));
+                switch (reportType) {
+                    case "4":
+                        myModels.add(new MyModel(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                                rs.getString(5), rs.getString(6)));
+                        break;
+                    default:
+                        myModels.add(new MyModel(rs.getString(1), rs.getString(2)));
+                        break;
+                }
             }
         } catch (Exception e) {
             log.error("getDashboardData: " + e.getMessage());
@@ -399,6 +426,60 @@ public class DataHandler {
         return reportDetails;
     }
 
+    public static List<MyModelSimpleStringProperty> getDashboardReportDetails(String reportType, String param) {
+        List<MyModelSimpleStringProperty> reportDetails = new LinkedList<>();
+        String sqlQuery = "";
+        switch (reportType) {
+            case "1":
+                sqlQuery = String.format(Q_S_DASHBOARD1_, param);
+                break;
+            case "2":
+                sqlQuery = String.format(Q_S_DASHBOARD2_, param);
+                break;
+            case "3":
+                sqlQuery = String.format(Q_S_DASHBOARD3_, param);
+                break;
+            case "4":
+                sqlQuery = String.format(Q_S_DASHBOARD4_, param);
+                break;
+            case "5":
+                sqlQuery = String.format(Q_S_DASHBOARD5_, param);
+                break;
+        }
+
+        Connection con = getConnection();
+        Statement s = null;
+        ResultSet rs = null;
+        try {
+            log.info("sqlQuery:" + sqlQuery);
+            s = con.createStatement();
+            rs = s.executeQuery(sqlQuery);
+            while (rs.next()) {
+                reportDetails.add(new MyModelSimpleStringProperty(rs.getString(1), rs.getString(2),
+                        rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),
+                        rs.getString(7), rs.getString(8), rs.getString(9), rs.getString(10),
+                        rs.getString(11), "", "", "", "", ""));
+            }
+        } catch (SQLException e) {
+            log.error("getDashboardReportDetails: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (s != null) {
+                    s.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                log.error("getDashboardReportDetails: " + ex.getMessage());
+            }
+        }
+        return reportDetails;
+    }
+
     public static boolean updateVoterDetails(String emailId, String mobileNo, String alternatMobileNo,
             String dob, String age, String community, String gender, String wardNo, String wardSrNo) {
         String sqlQuery = String.format(Q_U_VOTER_DETAILS, emailId, mobileNo, alternatMobileNo,
@@ -461,7 +542,7 @@ public class DataHandler {
         return false;
     }
 
-    public static void getReport(String... params) {
+    public static int getReport(String... params) {
         String sqlQuery = "";
         Statement s = null;
         ResultSet rs = null;
@@ -589,6 +670,15 @@ public class DataHandler {
                     }
                 }
             }
+            if (reportType.equals("STATUS_UPDATE")) {
+                return statusUpdateTableData.size();
+            } else if (reportType.equals("ELECTION_HISTORY")) {
+                return electionHistoryTableData.size();
+            } else if (StringUtils.isNumeric(reportType)) {
+                return reportTableData.size();
+            } else {
+                return voterTableData.size();
+            }
         } catch (Exception e) {
             log.error("getReportException: " + e.getMessage());
         } finally {
@@ -606,6 +696,61 @@ public class DataHandler {
                 log.error("getReport: " + ex.getMessage());
             }
         }
+        return 0;
+    }
+
+    public static int getDashaboardReports(String reportType) {
+        String sqlQuery = "";
+        Statement s = null;
+        ResultSet rs = null;
+        Connection con = null;
+        try {
+            switch (reportType) {
+                case "1":
+                    sqlQuery = Q_S_DASHBOARD1;
+                    break;
+                case "2":
+                    sqlQuery = Q_S_DASHBOARD2;
+                    break;
+                case "3":
+                    sqlQuery = Q_S_DASHBOARD3;
+                    break;
+                case "4":
+                    sqlQuery = Q_S_DASHBOARD4;
+                    break;
+                case "5":
+                    sqlQuery = Q_S_DASHBOARD5;
+                    break;
+            }
+            con = getConnection();
+            log.info("sqlQuery: " + sqlQuery);
+            s = con.createStatement();
+            rs = s.executeQuery(sqlQuery);
+            dashboardTableData.clear();
+            while (rs.next()) {
+                MyModelSimpleStringProperty entry = new MyModelSimpleStringProperty(rs.getString(1), rs.getString(2),
+                        rs.getString(3), "", "", "", "", "", "", "", "", "", "", "", "", "");
+                dashboardTableData.add(entry);
+            }
+            return dashboardTableData.size();
+        } catch (Exception e) {
+            log.error("getReportException: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (s != null) {
+                    s.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (Exception ex) {
+                log.error("getReport: " + ex.getMessage());
+            }
+        }
+        return 0;
     }
 
     public static boolean exportData(File file, String[] params) {
@@ -690,7 +835,7 @@ public class DataHandler {
                 parameters.put("parameter6", "मतदाराचे नाव");
                 parameters.put("parameter7", "वय");
                 parameters.put("parameter8", "लिंग");
-                parameters.put("parameter9", "घर क्र.");                
+                parameters.put("parameter9", "घर क्र.");
                 parameters.put("parameter10", "मोबाईल नं");
                 parameters.put("parameter11", "जन्म तारीख");
                 parameters.put("parameter12", "रिमार्क");
@@ -711,7 +856,7 @@ public class DataHandler {
                 parameters.put("parameter6", "मतदाराचे नाव");
                 parameters.put("parameter7", "वय");
                 parameters.put("parameter8", "लिंग");
-                parameters.put("parameter9", "घर क्र.");                
+                parameters.put("parameter9", "घर क्र.");
                 parameters.put("parameter10", "मोबाईल नं");
                 parameters.put("parameter11", "जन्म तारीख");
                 parameters.put("parameter12", "रंग रिमार्क");

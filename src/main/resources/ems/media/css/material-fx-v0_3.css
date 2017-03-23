@@ -15,11 +15,11 @@
 	-fx-text-base-color: rgb(100.0, 100.0, 100.0);
 	-fx-text-button-normal: -swatch-500;
 	-fx-text-button-colored: rgb(255.0, 255.0, 255.0);
-	-fx-text-button-text: rgb(100.0, 100.0, 100.0);
+	-fx-text-button-text: -swatch-500;
 	-fx-text-title-color: rgb(45.0, 45.0, 45.0);
 	-fx-text-subtitle-color: rgb(65.0, 65.0, 65.0);
 	-fx-text-control-title-color: rgb(130.0, 130.0, 130.0);
-	-fx-text-fill: -fx-text-base-color;
+	-fx-text-fill: black;
 	-dark: rgb(47.0, 52.0, 57.0);
 	-fx-background-color: -swatch-500;
 	/*default font */
@@ -657,7 +657,7 @@
 }
 
 .table-row-cell, .tree-table-row-cell {
-	-fx-cell-size: 40px;
+	-fx-cell-size: 30px;
 }
 
 .table-cell {
@@ -713,7 +713,7 @@
  *                                                                             *
  ******************************************************************************/
 .tool-bar, .menu-bar { /* top */
-	-fx-background-color: -swatch-grey;
+	-fx-background-color: white;
 	-fx-border-width: 0 0 2 0;
 	-fx-border-color: rgb(192,192,192);
 	-fx-min-height: 30;

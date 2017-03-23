@@ -30,7 +30,6 @@
         <Button fx:id="update" layoutX="416.0" layoutY="73.0" mnemonicParsing="false" text="Update" onAction="#updateAction" />
     </children>
    <stylesheets>
-      <URL value="@../media/css/material-fx-v0_3.css" />
-      <URL value="@../media/css/materialfx-toggleswitch.css" />
+      <URL value="@../media/css/MyTheme.css" />
    </stylesheets>
 </AnchorPane>

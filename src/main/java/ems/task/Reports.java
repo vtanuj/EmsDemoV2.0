@@ -20,6 +20,7 @@ import javafx.stage.Window;
 public class Reports extends Task<Void> {
 
     private final String[] params;
+    private int recordsFound;
 
     public Reports(Stage stage, Window window, String... params) {
 
@@ -30,17 +31,26 @@ public class Reports extends Task<Void> {
                 window.getScene().getRoot().setEffect(null);
                 stage.hide();
             }
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Okay");
-            alert.showAndWait();
+            if (recordsFound == 0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Searching Results");
+                alert.setHeaderText("Records searching unsuccessful!");
+                alert.setContentText("No records found. Please try again with new parameters.");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Searching Results");
+                alert.setHeaderText("Records searching successful!");
+                alert.setContentText(recordsFound + " records found.");
+                alert.showAndWait();
+            }
         });
     }
 
     @Override
     protected Void call() throws Exception {
         try {
-            DataHandler.getReport(params);
+            recordsFound = DataHandler.getReport(params);
         } catch (Exception e) {
             log.error(e.getMessage());
         }

@@ -117,10 +117,10 @@ public class Ems extends Application {
             @Override
             protected Void call() throws InterruptedException, IOException {
 
-                Files.walk(Paths.get(PATH_TEMP))
-                        .map(Path::toFile)
-                        .sorted((o1, o2) -> -o1.compareTo(o2))
-                        .forEach(File::delete);
+//                Files.walk(Paths.get(PATH_TEMP))
+//                        .map(Path::toFile)
+//                        .sorted((o1, o2) -> -o1.compareTo(o2))
+//                        .forEach(File::delete);
 
                 Thread.sleep(400);
                 updateMessage("Loading please wait . . .");

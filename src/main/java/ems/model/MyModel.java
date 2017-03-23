@@ -50,9 +50,29 @@ public class MyModel {
         this.obj5 = obj5;
     }
 
+    public MyModel(String obj1, String obj2, String obj3, String obj4, String obj5, String obj6) {
+        this.obj1 = obj1;
+        this.obj2 = obj2;
+        this.obj3 = obj3;
+        this.obj4 = obj4;
+        this.obj5 = obj5;
+        this.obj6 = obj6;
+    }
+
     public MyModel(String obj1, String obj2, String obj3, String obj4, String obj5, String obj6,
-            String obj7, String obj8, String obj9, String obj10, String obj11, String obj12, 
-            String obj13, String obj14,String obj15) {
+            String obj7) {
+        this.obj1 = obj1;
+        this.obj2 = obj2;
+        this.obj3 = obj3;
+        this.obj4 = obj4;
+        this.obj5 = obj5;
+        this.obj6 = obj6;
+        this.obj7 = obj7;
+    }
+
+    public MyModel(String obj1, String obj2, String obj3, String obj4, String obj5, String obj6,
+            String obj7, String obj8, String obj9, String obj10, String obj11, String obj12,
+            String obj13, String obj14, String obj15) {
         this.obj1 = obj1;
         this.obj2 = obj2;
         this.obj3 = obj3;
@@ -90,10 +110,10 @@ public class MyModel {
         this.obj15 = obj15;
         this.obj16 = obj16;
     }
-    
+
     public MyModel(String obj1, String obj2, String obj3, String obj4, String obj5, String obj6, String obj7,
             String obj8, String obj9, String obj10, String obj11, String obj12, String obj13, String obj14,
-            String obj15, String obj16,String obj17) {
+            String obj15, String obj16, String obj17) {
         this.obj1 = obj1;
         this.obj2 = obj2;
         this.obj3 = obj3;

@@ -14,6 +14,7 @@ import java.util.List;
  * @author tanujv
  */
 public class Constants {
+
     //Splash
     public static final String HEADER_SPLASH = "e-Solutions Election Management System";
     //Login
@@ -114,7 +115,7 @@ public class Constants {
             + "ifnull(case when trim(sex)='M' then 'Male' when trim(sex)='F' then 'Female' end,'OTHERS') gender, "
             + "count(*)'No' "
             + "from e_details "
-            + "group by trim(sex)"
+            + "group by trim(sex) "
             + "order by 1";
 
     public static final String Q_S_DASHBOARD_COLOR_WISE
@@ -125,11 +126,173 @@ public class Constants {
             + "when star_vote=3 then 'Unpredictable' "
             + "when star_vote=4 then 'Others' "
             + "when star_vote=5 then 'All' "
+            + "when star_vote is null then 'Not Updated' "
             + "end, "
             + "count(*)'No' "
             + "from e_details "
             + "group by star_vote "
             + "order by 1";
+
+    public static final String Q_S_DASHBOARD_1
+            = "select "
+            + "ward_no, "
+            + "ifnull(ward_name,'Bhiwandi') ward_name, "
+            + "(select count(*) from e_details) voters, "
+            + "(select count(distinct booth_no) from e_details) booth_count, "
+            + "(select count(*) from e_details where strftime('%m-%d', DOB)=strftime('%m-%d',date('now'))) birthday, "
+            + "(select count(*) from e_details where substr(relation,1,1)='H') family "
+            + "from ward_master;";
+
+    public static final String Q_S_DASHBOARD_2
+            = "select 'Age < 20' 'age',sum(case when age < 20 then 1 else 0 end) 'count' from e_details union "
+            + "select '20 < Age > 30',sum(case when age > 20 and age < 30 then 1 else 0 end) 'count' from e_details union "
+            + "select '30 < Age > 40',sum(case when age > 30 and age < 40 then 1 else 0 end) 'count' from e_details union "
+            + "select '40 < Age > 50',sum(case when age > 40 and age < 50 then 1 else 0 end) 'count' from e_details union "
+            + "select 'Age > 50',sum(case when age > 50 then 1 else 0 end) 'count' from e_details ;";
+
+    public static final String Q_S_DASHBOARD1
+            = "select "
+            + "case when a.sex='M' then 'Male' else 'Female' end 'sex', "
+            + "a.count, "
+            + "cast(((a.count * 100) / b.count) as varchar(10)) || '%' 'avg' "
+            + "from(SELECT sex,count(*) AS count FROM e_details GROUP BY sex) a "
+            + "join (SELECT count(*) AS count FROM e_details) b order by 1";
+
+    public static final String Q_S_DASHBOARD1_
+            = "select "
+            + "ifnull(a.ward_no,''),"
+            + "ifnull(a.WardSr_No,''),"
+            + "IFNULL(a.slno,''),"
+            + "trim(ifnull(a.SurNameEnglish,'')) || '  ' || trim(ifnull(a.FirstNameEnglish,'')) 'Name', "
+            + "ifnull(a.SEX,''),"
+            + "ifnull(a.AGE,''),"
+            + "ifnull(a.CardNo,''),"
+            + "ifnull(a.Mobile_no,''),"
+            + "ifnull(strftime('%%d-%%m-%%Y', a.DOB),''),"
+            + "ifnull(a.Cast_nm,''),"
+            + "ifnull(b.booth_name_en,'') "
+            + "from e_details a "
+            + "left join booth_master b on a.booth_no=b.booth_no "
+            + "where (case when a.sex='M' then 'Male' else 'Female' end)='%s' "
+            + "order by a.FirstNameEnglish";
+
+    public static final String Q_S_DASHBOARD2
+            = "select "
+            + "a.age, "
+            + "a.count, "
+            + "cast(((a.count * 100) / b.count) as varchar(10)) || '%' 'avg' "
+            + "from(SELECT age,count(*) AS count FROM e_details GROUP BY age) a "
+            + "join (SELECT count(*) AS count FROM e_details) b order by 1";
+
+    public static final String Q_S_DASHBOARD2_
+            = "select "
+            + "ifnull(a.ward_no,''),"
+            + "ifnull(a.WardSr_No,''),"
+            + "IFNULL(a.slno,''),"
+            + "trim(ifnull(a.SurNameEnglish,'')) || '  ' || trim(ifnull(a.FirstNameEnglish,'')) 'Name', "
+            + "ifnull(a.SEX,''),"
+            + "ifnull(a.AGE,''),"
+            + "ifnull(a.CardNo,''),"
+            + "ifnull(a.Mobile_no,''),"
+            + "ifnull(strftime('%%d-%%m-%%Y', a.DOB),''),"
+            + "ifnull(a.Cast_nm,''),"
+            + "ifnull(b.booth_name_en,'') "
+            + "from e_details a "
+            + "left join booth_master b on a.booth_no=b.booth_no "
+            + "where a.age='%s' "
+            + "order by a.FirstNameEnglish";
+
+    public static final String Q_S_DASHBOARD3
+            = "select "
+            + "a.cast_nm, "
+            + "a.count, "
+            + "cast(((a.count * 100) / b.count) as varchar(10)) || '%' 'avg' "
+            + "from(SELECT UPPER(trim(cast_nm)) cast_nm,count(*) AS count FROM e_details GROUP BY UPPER(trim(cast_nm))) a "
+            + "join (SELECT count(*) AS count FROM e_details) b";
+
+    public static final String Q_S_DASHBOARD3_
+            = "select "
+            + "ifnull(a.ward_no,''),"
+            + "ifnull(a.WardSr_No,''),"
+            + "IFNULL(a.slno,''),"
+            + "trim(ifnull(a.SurNameEnglish,'')) || '  ' || trim(ifnull(a.FirstNameEnglish,'')) 'Name', "
+            + "ifnull(a.SEX,''),"
+            + "ifnull(a.AGE,''),"
+            + "ifnull(a.CardNo,''),"
+            + "ifnull(a.Mobile_no,''),"
+            + "ifnull(strftime('%%d-%%m-%%Y', a.DOB),''),"
+            + "ifnull(a.Cast_nm,''),"
+            + "ifnull(b.booth_name_en,'') "
+            + "from e_details a "
+            + "left join booth_master b on a.booth_no=b.booth_no "
+            + "where a.cast_nm='%s' "
+            + "order by a.FirstNameEnglish";
+
+    public static final String Q_S_DASHBOARD4
+            = "select "
+            + "a.SurNameEnglish, "
+            + "a.count, "
+            + "cast(((a.count * 100) / b.count) as varchar(10)) || '%' 'avg' "
+            + "from(SELECT SurNameEnglish,count(*) AS count FROM e_details GROUP BY SurNameEnglish) a "
+            + "join (SELECT count(*) AS count FROM e_details) b";
+
+    public static final String Q_S_DASHBOARD4_
+            = "select "
+            + "ifnull(a.ward_no,''),"
+            + "ifnull(a.WardSr_No,''),"
+            + "IFNULL(a.slno,''),"
+            + "trim(ifnull(a.SurNameEnglish,'')) || '  ' || trim(ifnull(a.FirstNameEnglish,'')) 'Name', "
+            + "ifnull(a.SEX,''),"
+            + "ifnull(a.AGE,''),"
+            + "ifnull(a.CardNo,''),"
+            + "ifnull(a.Mobile_no,''),"
+            + "ifnull(strftime('%%d-%%m-%%Y', a.DOB),''),"
+            + "ifnull(a.Cast_nm,''),"
+            + "ifnull(b.booth_name_en,'') "
+            + "from e_details a "
+            + "left join booth_master b on a.booth_no=b.booth_no "
+            + "where a.SurNameEnglish='%s' "
+            + "order by a.FirstNameEnglish";
+
+    public static final String Q_S_DASHBOARD5
+            = "select "
+            + "case "
+            + "when star_vote=1 then 'Our' "
+            + "when star_vote=2 then 'Opposite' "
+            + "when star_vote=3 then 'Unpredictable' "
+            + "when star_vote=4 then 'Others' "
+            + "when star_vote=5 then 'All' "
+            + "when star_vote is null then 'Not Updated' "
+            + "end, "
+            + "a.count, "
+            + "cast(((a.count * 100) / b.count) as varchar(10)) || '%' 'avg' "
+            + "from(SELECT star_vote,count(*) AS count FROM e_details GROUP BY star_vote) a "
+            + "join (SELECT count(*) AS count FROM e_details) b";
+
+    public static final String Q_S_DASHBOARD5_
+            = "select "
+            + "ifnull(a.ward_no,''),"
+            + "ifnull(a.WardSr_No,''),"
+            + "IFNULL(a.slno,''),"
+            + "trim(ifnull(a.SurNameEnglish,'')) || '  ' || trim(ifnull(a.FirstNameEnglish,'')) 'Name', "
+            + "ifnull(a.SEX,''),"
+            + "ifnull(a.AGE,''),"
+            + "ifnull(a.CardNo,''),"
+            + "ifnull(a.Mobile_no,''),"
+            + "ifnull(strftime('%%d-%%m-%%Y', a.DOB),''),"
+            + "ifnull(a.Cast_nm,''),"
+            + "ifnull(b.booth_name_en,'') "
+            + "from e_details a "
+            + "left join booth_master b on a.booth_no=b.booth_no "
+            + "where case "
+            + "when star_vote=1 then 'Our' "
+            + "when star_vote=2 then 'Opposite' "
+            + "when star_vote=3 then 'Unpredictable' "
+            + "when star_vote=4 then 'Others' "
+            + "when star_vote=5 then 'All' "
+            + "when star_vote is null then 'Not Updated' "
+            + "end='%s' "
+            + "order by a.FirstNameEnglish";
 
     public static final String Q_S_GET_VOTER
             = "select "

@@ -1,0 +1,257 @@
+
+/*******************************************************************************
+ *                                                                             *
+ * Root					 				                       				   *
+ *                                                                             *
+ ******************************************************************************/
+.root {
+    /* Swatch Colors - Blue*/
+    -swatch-100: #BBDEFB;
+    -swatch-200: #90CAF9;
+    -swatch-300: #64BEF6;
+    -swatch-400: #42A5F5;
+    -swatch-500: #2196F3;
+    /*default text */
+    -fx-text-base-color: rgb(100.0, 100.0, 100.0);
+    -fx-text-button-normal: -swatch-500;
+    -fx-text-button-colored: rgb(255.0, 255.0, 255.0);
+    -fx-text-button-text: -swatch-500;
+    -fx-text-title-color: rgb(45.0, 45.0, 45.0);
+    -fx-text-subtitle-color: rgb(65.0, 65.0, 65.0);
+    -fx-text-control-title-color: rgb(130.0, 130.0, 130.0);
+    -fx-text-fill: black;
+    -dark: rgb(47.0, 52.0, 57.0);
+    -fx-background-color: -swatch-500;
+    /*default font */
+    -fx-font-family: 'Roboto Medium';
+    -fx-font-size: 14.0px;
+    -fx-disabled-opacity: 0.6;
+    /*default colors */
+    -swatch-grey: rgb(200.0, 200.0, 200.0);
+    -swatch-dark-grey: rgb(150.0, 150.0, 150.0);
+    -swatch-light-grey: rgb(230.0, 230.0, 230.0);
+    -swatch-toolbar: rgb(245.0, 245.0, 245.0);
+    -swatch-toolbar-selected: rgb(215.0, 215.0, 215.0);
+    /* 
+ Modena colors
+    */
+    -fx-dark-text-color: white; /* Text color when selected*/
+    -fx-mid-text-color: -fx-text-base-color;
+    -fx-light-text-color: -swatch-light-grey;
+    -fx-body-color: white;
+    /* A bright blue for the focus indicator of objects. Typically used as the
+ * first color in -fx-background-color for the "focused" pseudo-class. Also
+ * typically used with insets of -1.4 to provide a glowing effect.
+ */
+    -fx-focus-color: -swatch-400;
+    -fx-faint-focus-color: -swatch-200;
+    /* A bright blue for highlighting/accenting objects.  For example: selected
+ * text; selected items in menus, lists, trees, and tables; progress bars */
+    -fx-accent: -swatch-400;
+    -fx-dark-text-color: white;
+}
+
+
+
+
+/*******************************************************************************
+ *                                                                             *
+ * Tables								                       				   *
+ *                                                                             *
+ ******************************************************************************/
+.tree-table-view {
+    /* Constants used throughout the tableview. */
+    -fx-table-header-border-color: -fx-box-border;
+    -fx-table-cell-border-color: -fx-box-border; /* Horizontal Lines*/
+    -fx-background-color: transparent;
+}
+
+
+.tree-table-view .column-header {
+    -fx-size: 40;
+    -fx-border-style: null;
+    -fx-border-color: -swatch-grey;
+    -fx-border-width: 0 0 2 0;
+    -fx-background-color: -swatch-400;
+}
+
+.tree-table-view .show-hide-columns-button
+{
+    -fx-background-color: transparent;
+}
+
+.tree-table-view .column-header .label,	.tree-table-view .filler .label, .tree-table-view .column-drag-header .label
+{
+    -fx-alignment: CENTER_LEFT;
+}
+
+.tree-table-view 
+{
+    -fx-background-color: transparent;
+}
+
+.tree-table-row-cell {
+    -fx-cell-size: 30px;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Date Picker			                                                       *
+ *                                                                             *
+ ******************************************************************************/
+.date-picker-popup .button {
+	-fx-background-color: -swatch-500;
+}
+
+.date-picker-popup>.month-year-pane {
+	-fx-background-color: -swatch-500;
+}
+
+.date-picker-popup>*>.spinner>.button>.left-arrow, .date-picker-popup>*>.spinner>.button>.right-arrow
+	{
+	-fx-background-color: white;
+}
+
+.date-picker-popup>*>.spinner {
+	-fx-border-width: 0;
+}
+
+.date-picker-popup>*>.spinner>.label {
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
+}
+
+.date-picker-popup>*>.day-name-cell, .date-picker-popup>*>.week-number-cell
+	{
+	-fx-font-weight: normal;
+	-fx-text-fill: -swatch-dark-grey;
+	-fx-font-size: 1em;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Date picker						                                           *
+ *                                                                             *
+ ******************************************************************************/
+.date-picker .arrow-button {
+	-fx-background-color: transparent;
+}
+
+.date-picker .arrow-button .arrow {
+	-fx-background-insets: -4;
+}
+
+.date-picker .date-picker-display-node {
+	-fx-border-width: 0;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * RadioButton                                                                 *
+ *                                                                             *
+ ******************************************************************************/
+.radio-button {
+	-fx-padding: 10;
+}
+
+.radio-button .text {
+	-fx-fill: -fx-text-base-color;
+}
+
+.radio-button>.radio, .radio-button>.radio.unfocused, .radio-button:disabled>.radio,
+	.radio-button:selected>.radio {
+	-fx-border-radius: 100.0;
+	-fx-border-color: -swatch-grey;
+	-fx-border-width: 2;
+	-fx-background-radius: 100;
+	-fx-background-color: transparent;
+	-fx-padding: 3 3 3 3;
+}
+
+.radio-button:focused>.radio {
+	-fx-background-color: -swatch-100;
+}
+
+.radio-button:focused:armed>.radio {
+	-fx-background-color: -swatch-100;
+}
+
+.radio-button:selected>.radio>.dot {
+	-fx-background-color: -swatch-500;
+	-fx-background-insets: 0;
+}
+/*******************************************************************************
+ *                                                                             *
+ * ChoiceBox                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+.context-menu {
+	-fx-background-color: rgb(255.0, 255.0, 255.0, 0.95);
+	-fx-background-radius: 2.0;
+}
+
+.radio-menu-item, .check-menu-item {
+	-fx-padding: 0.7em 0.7em 0.7em 0em;
+}
+
+.radio-menu-item:checked .label, .check-menu-item:checked .label {
+	-fx-text-fill: -swatch-500;
+}
+
+.radio-menu-item:checked>.left-container>.radio, .check-menu-item:checked>.left-container>.check
+	{
+	-fx-background-color: -swatch-dark-grey;
+	-fx-padding: 0.68em 0.5em 0.0em 0.0em;
+	-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.2), 0.0, 0.0, 0.0,
+		1.0);
+}
+
+.radio-menu-item>.left-container>.radio, .check-menu-item>.left-container>.check
+	{
+	-fx-background-color: transparent;
+	-fx-padding: 0.68em 0.68em 0.0em 0.0em;
+}
+
+
+
+/*******************************************************************************
+ *                                                                             *
+ * CheckBox                                                                    *
+ *                                                                             *
+ ******************************************************************************/
+.check-box {
+	-fx-padding: 10;
+}
+
+.check-box .text {
+	-fx-fill: -fx-text-base-color;
+}
+
+.check-box>.box, .check-box>.box.unfocused, .check-box:disabled>.box,
+	.check-box:indeterminate>.box {
+	-fx-border-radius: 4.0;
+	-fx-border-color: -swatch-grey;
+	-fx-border-width: 2;
+	-fx-background-radius: 4;
+	-fx-background-color: transparent;
+	-fx-padding: 1;
+}
+
+.check-box:selected>.box {
+	-fx-border-color: -swatch-500;
+	-fx-background-color: -swatch-500;
+}
+
+.check-box:focused>.box {
+	-fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.30), 6.0, 0.3, 0,
+		0);
+}
+
+.check-box:selected>.box>.mark {
+	-fx-background-color: white;
+}
+
+.check-box:indeterminate>.box>.mark {
+	-fx-background-color: -swatch-grey;
+	-fx-padding: 0.45em;
+}
