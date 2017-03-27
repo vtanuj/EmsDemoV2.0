@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import org.controlsfx.glyphfont.*?>
+<?import org.controlsfx.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane fx:id="view" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ems.util.jrviewer.JRViewerFxController">
+    <top>
+        <Pane prefHeight="65.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="print" layoutX="25.0" layoutY="15.0" mnemonicParsing="false" onAction="#print" text="Print" />
+                <ComboBox fx:id="pageList" layoutX="365.0" layoutY="15.0" onAction="#pageListSelected" prefHeight="25.0" prefWidth="88.0" />
+                <Button fx:id="save" layoutX="144.0" layoutY="15.0" mnemonicParsing="false" onAction="#save" text="Save" />
+                <Slider fx:id="zoomLevel" blockIncrement="25.0" layoutX="616.0" layoutY="18.0" majorTickUnit="75.0" max="175.0" min="25.0" minorTickCount="2" prefHeight="23.0" prefWidth="141.0" showTickLabels="true" showTickMarks="true" value="100.0" />
+                <Label layoutX="304.0" layoutY="17.0" text="View Page" />
+                <Label layoutX="553.0" layoutY="19.0" text="Zoom" />
+
+            </children>
+        </Pane>
+    </top>
+    <center>
+        <ScrollPane prefHeight="500.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+            <content>
+                <ImageView fx:id="imageView" fitHeight="349.0" fitWidth="522.0" pickOnBounds="true" preserveRatio="true" />
+            </content>
+        </ScrollPane>
+    </center>
+    <right>
+    </right>
+    <bottom>
+        <Accordion fx:id="resultAccordion" BorderPane.alignment="CENTER">
+            <panes>
+                <TitledPane fx:id="resultPane" animated="false" text="untitled 1" visible="false">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <Label fx:id="resultDescription" layoutX="14.0" layoutY="7.0" text="Label" wrapText="true" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </TitledPane>
+            </panes>
+        </Accordion>
+    </bottom>
+</BorderPane>

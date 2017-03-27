@@ -142,28 +142,28 @@ from e_details where booth_no=$P{boothNumber}]]>
 			<textField>
 				<reportElement x="125" y="10" width="300" height="22" uuid="9766ac8a-fa17-440b-ab6b-09239b698f61"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="12" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="Arial Unicode MS" size="12" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{reportName}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="13" y="49" width="100" height="22" uuid="c7883e33-623e-467d-b1c6-c9a627114b03"/>
 				<textElement>
-					<font size="12" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font size="12" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{boothLabel}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="13" y="10" width="100" height="22" uuid="020ad63c-85eb-4abe-a9c6-4e6493405915"/>
 				<textElement>
-					<font size="12" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font size="12" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{wardNo}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="125" y="49" width="393" height="56" uuid="0bcc1abf-7b88-4452-9e21-f0b3ee2a0562"/>
 				<textElement>
-					<font size="12" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font size="12" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{boothName}]]></textFieldExpression>
 			</textField>
@@ -221,7 +221,7 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="40" height="40" uuid="8920b797-17b7-47da-bddf-dd0e8b887553"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{parameter1}]]></textFieldExpression>
 							</textField>
@@ -230,7 +230,7 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="40" height="20" uuid="607b0cfd-d2a7-4bcc-bf30-4d501457e8f1"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[""+$F{wardsr_no}]]></textFieldExpression>
 							</textField>
@@ -241,7 +241,7 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="40" height="40" uuid="9256684d-4bc2-4ac0-b439-1e47414f0e7d"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{parameter2}]]></textFieldExpression>
 							</textField>
@@ -250,7 +250,7 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="40" height="20" uuid="eb268b4f-5e7e-4d88-a503-f8df90ae11c2"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[""+$F{slno}]]></textFieldExpression>
 							</textField>
@@ -261,7 +261,7 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="40" height="40" uuid="5fac1e6a-2f31-4a08-92c1-1cea092e57e8"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{parameter3}]]></textFieldExpression>
 							</textField>
@@ -270,7 +270,7 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="40" height="20" uuid="5bccd91c-2978-4e2e-bfb9-62dff000bb00"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[""+$F{ac_no}]]></textFieldExpression>
 							</textField>
@@ -281,14 +281,14 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="40" height="20" uuid="5240c05e-4c54-4b03-aa4d-7afe50eacf27"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{parameter4}]]></textFieldExpression>
 							</textField>
 							<textField>
 								<reportElement x="0" y="20" width="40" height="20" uuid="f633d141-73d6-4f48-a89b-aebcfd2e56b5"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{parameter5}]]></textFieldExpression>
 							</textField>
@@ -297,14 +297,14 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="40" height="19" uuid="22a48bd6-d0fe-4e5b-b86f-71b7f3bfdc06"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="9" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="9" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[""+$F{part_no}]]></textFieldExpression>
 							</textField>
 							<textField>
 								<reportElement x="0" y="19" width="40" height="19" uuid="25c02593-733b-4d90-a1e4-81561fc83f58"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="9" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="9" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[""+$F{serialinpart}]]></textFieldExpression>
 							</textField>
@@ -315,7 +315,7 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="120" height="40" uuid="51992df3-8240-4165-ba51-cde1f83bb255"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{parameter6}]]></textFieldExpression>
 							</textField>
@@ -324,14 +324,14 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="120" height="19" uuid="93a55d7a-bb77-4fcf-8d04-49819c85867f"/>
 								<textElement verticalAlignment="Middle">
-									<font size="8" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="8" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[" "+$F{name}]]></textFieldExpression>
 							</textField>
 							<textField>
 								<reportElement x="0" y="19" width="120" height="19" uuid="7cbb34fd-2a40-4824-bc68-85047a581536"/>
 								<textElement verticalAlignment="Middle">
-									<font size="8" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="8" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[" "+$F{name1}]]></textFieldExpression>
 							</textField>
@@ -342,14 +342,14 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="30" height="20" uuid="b977b248-ca10-480f-be55-6d48b6a6d640"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{parameter7}]]></textFieldExpression>
 							</textField>
 							<textField>
 								<reportElement x="0" y="20" width="30" height="20" uuid="10702d3e-8f83-4f3d-8bce-d8bd0d732525"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{parameter8}]]></textFieldExpression>
 							</textField>
@@ -358,14 +358,14 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="30" height="19" uuid="ad34e783-479a-4fbc-b08e-394ca1d1d874"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[""+$F{sex}]]></textFieldExpression>
 							</textField>
 							<textField>
 								<reportElement x="0" y="19" width="30" height="19" uuid="b1ca55fb-534e-4083-a944-aa5efbf50711"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[""+$F{age}]]></textFieldExpression>
 							</textField>
@@ -376,7 +376,7 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="70" height="40" uuid="ccea3ff5-df41-47e9-a857-4f0181ebc8f5"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{parameter9}]]></textFieldExpression>
 							</textField>
@@ -385,7 +385,7 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="70" height="19" uuid="b2764371-d486-4e1c-b771-c3bd94cc6c04"/>
 								<textElement verticalAlignment="Middle">
-									<font pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[" "+$F{mobile_no}]]></textFieldExpression>
 							</textField>
@@ -400,14 +400,14 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="90" height="20" uuid="8d3dfccd-3f58-4056-8df0-dd98ab261371"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{parameter10}]]></textFieldExpression>
 							</textField>
 							<textField>
 								<reportElement x="0" y="20" width="90" height="20" uuid="d9a5c89f-48bd-4172-bb36-d39ddcaf80eb"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{parameter11}]]></textFieldExpression>
 							</textField>
@@ -416,14 +416,14 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="90" height="19" uuid="a07a6f53-e16c-4553-82e9-d4d67a6b7e90"/>
 								<textElement verticalAlignment="Middle">
-									<font size="10" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[" "+$F{CardNo}]]></textFieldExpression>
 							</textField>
 							<textField>
 								<reportElement x="0" y="19" width="90" height="19" uuid="ef253d0c-8aad-4672-9abd-13c67e8e6d78"/>
 								<textElement verticalAlignment="Middle">
-									<font size="10" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[" "+$F{dob}]]></textFieldExpression>
 							</textField>
@@ -434,7 +434,7 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="0" y="0" width="105" height="40" uuid="f0454088-5e3a-4814-ab1f-0280fd271af8"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="10" isBold="true" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="10" isBold="true" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$P{parameter12}]]></textFieldExpression>
 							</textField>
@@ -443,7 +443,7 @@ from e_details where booth_no=$P{boothNumber}]]>
 							<textField>
 								<reportElement x="2" y="0" width="103" height="38" uuid="6cd4fe59-df21-40a1-b514-da08b429f341"/>
 								<textElement verticalAlignment="Middle">
-									<font size="8" pdfFontName="./temp/ARIALUNI_1.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+									<font size="8" pdfFontName="Arial Unicode MS" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 								</textElement>
 								<textFieldExpression><![CDATA[""+$F{unicodeaddress}]]></textFieldExpression>
 							</textField>

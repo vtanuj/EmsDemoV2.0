@@ -9,8 +9,6 @@ import static ems.util.Constants.HEADER_SPLASH;
 import static ems.util.Constants.IMAGE_FAVICON;
 import static ems.util.Constants.IMAGE_SPLASH;
 import static ems.util.Constants.PATH_AUTH_DB;
-import static ems.util.Constants.PATH_FONT_UNICODE;
-import static ems.util.Constants.PATH_FONT_UNICODE_;
 import static ems.util.Constants.PATH_REPORT_1;
 import static ems.util.Constants.PATH_REPORT_1_;
 import static ems.util.Constants.PATH_REPORT_2;
@@ -26,9 +24,12 @@ import static ems.util.Constants.TITLE_HOME;
 import ems.util.MyUtils;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.animation.FadeTransition;
@@ -54,6 +55,11 @@ import javafx.stage.Screen;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import org.apache.log4j.Logger;
 import org.controlsfx.control.Notifications;
 
@@ -115,8 +121,19 @@ public class Ems extends Application {
     public void start(final Stage initStage) throws Exception {
         final Task task = new Task() {
             @Override
-            protected Void call() throws InterruptedException, IOException {
+            protected Void call() throws InterruptedException, IOException, JRException {
+                try {
 
+                    Map parameters = new HashMap();
+                    InputStream resourceAsStream = Ems.class.getResourceAsStream("/a/newReport.jasper");
+
+                    parameters.put("parameter1", "अनु क्र.");
+                    parameters.put("parameter2", "न्यू अनु क्र.");
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(resourceAsStream, parameters, new JREmptyDataSource());
+                    JasperExportManager.exportReportToPdfFile(jasperPrint, "d://asd.pdf");
+                } catch (Exception e) {
+                    System.out.println("----------"+e.getMessage());
+                }
 //                Files.walk(Paths.get(PATH_TEMP))
 //                        .map(Path::toFile)
 //                        .sorted((o1, o2) -> -o1.compareTo(o2))
@@ -150,10 +167,6 @@ public class Ems extends Application {
 
                 //copy font
                 updateMessage("Loading . . . fonts");
-                File fontFile = new File(PATH_FONT_UNICODE);
-                if (!fontFile.exists()) {
-                    MyUtils.copyFile(PATH_FONT_UNICODE, PATH_FONT_UNICODE_);
-                }
                 updateProgress(40, 100);
 
                 //copy reports

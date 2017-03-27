@@ -224,7 +224,7 @@ public class MyUtils {
         }
     }
 
-    private static boolean copyFileUsingStream(File source, File dest) throws IOException {
+    public static boolean copyFileUsingStream(File source, File dest) throws IOException {
         InputStream is = null;
         OutputStream os = null;
         try {
@@ -251,7 +251,8 @@ public class MyUtils {
 
     public static void importDB(File file) {
         try {
-            boolean renameStatus = renameFile(new File(PATH_TEMP_DB_), new File(PATH_TEMP_DB_ + "_" + DateUtils.dateTimePlain()));
+            boolean renameStatus = renameFile(new File(PATH_TEMP_DB_),
+                    new File(PATH_TEMP_DB_ + "_" + DateUtils.dateTimePlain()));
             if (renameStatus) {
                 boolean status = copyFileUsingStream(file, new File(PATH_TEMP_DB_));
                 if (status) {

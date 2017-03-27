@@ -21,6 +21,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -29,6 +30,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import org.controlsfx.control.Rating;
 import org.controlsfx.glyphfont.FontAwesome;
 
 /**
@@ -139,6 +141,7 @@ public class VoterDetailsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
         dateOfBirth.setConverter(new StringConverter<LocalDate>() {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
@@ -211,17 +214,29 @@ public class VoterDetailsController implements Initializable {
     private void updateAction(ActionEvent event) {
 
         String emailId = this.emailId.getText();
-        String mobileNo = mobileNumber.getText();
-        String alternatMobileNo = altMobileNumber.getText();
-        String dob = dateOfBirth.getValue() != null ? dateOfBirth.getValue().toString() : null;
-        String age = this.color.getSelectionModel().getSelectedItem().getObj1();
-        String community = this.community.getSelectionModel().getSelectedItem().getObj1();
-        String gender = this.gender.getSelectionModel().getSelectedItem().getObj1();
+        String mobileNo = this.mobileNumber.getText();
+        String alternatMobileNo = this.altMobileNumber.getText();
+        String dob = this.dateOfBirth.getValue() == null ? null : this.dateOfBirth.getValue().toString();
+        String age = this.color.getSelectionModel() == null ? null : this.color.getSelectionModel().getSelectedItem().getObj1();
+        String community = this.community.getSelectionModel() == null ? null : this.community.getSelectionModel().getSelectedItem().getObj1();
+        String gender = this.gender.getSelectionModel() == null ? null : this.gender.getSelectionModel().getSelectedItem().getObj1();
         String wardNo = voterDetails.getObj1();
         String wardSrNo = voterDetails.getObj3();
-        DataHandler.updateVoterDetails(emailId, mobileNo, alternatMobileNo, dob, age, community, gender, wardNo,
+        boolean status = DataHandler.updateVoterDetails(emailId, mobileNo, alternatMobileNo, dob, age, community, gender, wardNo,
                 wardSrNo);
-
+        if (status) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("Updation successful!");
+            alert.setContentText("Vote record updated succesfully.");
+            alert.showAndWait();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Failure");
+            alert.setHeaderText("Updation unsuccessful!");
+            alert.setContentText("Unable to update Vote record.");
+            alert.showAndWait();
+        }
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }

@@ -20,6 +20,7 @@
     <build>        
         <plugins>            
             <!--Local Running plugin-->
+           
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -58,7 +59,7 @@
                         </configuration>
                     </execution>
                 </executions>  
-            </plugin>            
+            </plugin>        
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -85,7 +86,7 @@
             </plugin>
             <!--Local Running plugin end-->
             <!--EXE plugin-->    
-            <!--        
+             <!--
             <plugin>
                 <groupId>com.zenjava</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -125,7 +126,7 @@
                     </execution>
                 </executions>
             </plugin>
-            -->   
+            -->
             <!--EXE plugin end-->
         </plugins>
     </build>
@@ -175,12 +176,12 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>6.4.0</version>
+            <version>6.0.0</version>
         </dependency>
         <dependency>
-            <groupId>fonts.MyCustomExtension</groupId>
-            <artifactId>mycustomadapter</artifactId>
-            <version>1</version>
+            <groupId>ArialUnicodeMs</groupId>
+            <artifactId>ArialUnicodeMs</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 </project>

@@ -39,8 +39,6 @@ public class Constants {
     public static final String PATH_TEMP_DB = "/ems/temp/temp.dll";
 
     public static final String PATH_FONT = "/ems/media/font/fontawesome-webfont.ttf";
-    public static final String PATH_FONT_UNICODE = "/ems/media/font/ARIALUNI_1.TTF";
-    public static final String PATH_FONT_UNICODE_ = PATH_TEMP + "/ARIALUNI_1.TTF";
 
     public static final String PATH_TEMP_DB_ = PATH_TEMP + "/temp.dll";
 
@@ -293,7 +291,18 @@ public class Constants {
             + "when star_vote is null then 'Not Updated' "
             + "end='%s' "
             + "order by a.FirstNameEnglish";
-
+    
+    public static final String Q_S_EXPORT
+            = "select "
+            + "count(*) 'Voters',"
+            + "sum(case when length(mobile_no)=10 then 1 else 0 end) 'MobileNumbers',"
+            + "sum(case when length(altr_mobile_no)=10 then 1 else 0 end) 'AltMobileNumbers',"
+            + "sum(case when length(email_id)>1 then 1 else 0 end) 'EmailId',"
+            + "sum(case when length(dob)>=10 then 1 else 0 end) 'DOB',"
+            + "sum(case when length(star_vote)=1 then 1 else 0 end) 'Color',"
+            + "sum(case when length(duplicate_voters)>12 then 1 else 0 end) 'DuplicateVoters' "
+            + "from e_details";
+    
     public static final String Q_S_GET_VOTER
             = "select "
             + "a.ward_no, "

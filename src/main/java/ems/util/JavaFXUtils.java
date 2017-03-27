@@ -46,6 +46,21 @@ public class JavaFXUtils {
         return dialog;
     }
 
+    public static Stage dialog(Window stage) {
+        Stage dialog = new Stage(StageStyle.TRANSPARENT);
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(stage);
+        VBox dialogVbox = new VBox(20);
+        ProgressIndicator pi = new ProgressIndicator();
+        pi.setMinWidth(100);
+        pi.setMinHeight(100);
+        dialogVbox.getChildren().add(pi);
+        dialogVbox.setStyle("-fx-background-color: transparent");
+        Scene dialogScene = new Scene(dialogVbox, 100, 100, Color.TRANSPARENT);
+        dialog.setScene(dialogScene);
+        return dialog;
+    }
+
     public static void dim(Window stage) {
         final BoxBlur soften = new BoxBlur();
         final ColorAdjust dim = new ColorAdjust();

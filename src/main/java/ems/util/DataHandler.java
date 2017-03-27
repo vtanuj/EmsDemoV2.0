@@ -50,6 +50,7 @@ import static ems.util.Constants.Q_S_DASHBOARD_CAST_WISE;
 import static ems.util.Constants.Q_S_DASHBOARD_COLOR_WISE;
 import static ems.util.Constants.Q_S_DASHBOARD_GENDER_WISE;
 import static ems.util.Constants.Q_S_ELECTION_HISTORY;
+import static ems.util.Constants.Q_S_EXPORT;
 import static ems.util.Constants.Q_S_GET_VOTER;
 import static ems.util.Constants.Q_S_ID_WISE;
 import static ems.util.Constants.Q_S_MOBILE_WISE;
@@ -81,10 +82,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javafx.collections.ObservableList;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import org.apache.commons.lang3.StringUtils;
 
 public class DataHandler {
@@ -94,6 +98,17 @@ public class DataHandler {
         try {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:" + PATH_TEMP_DB_);
+        } catch (Exception e) {
+            log.error("getConnection: " + e.getMessage());
+        }
+        return con;
+    }
+
+    public static Connection getConnection(String tempFile) {
+        Connection con = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            con = DriverManager.getConnection("jdbc:sqlite:" + tempFile);
         } catch (Exception e) {
             log.error("getConnection: " + e.getMessage());
         }
@@ -119,6 +134,9 @@ public class DataHandler {
             case "5":
                 sqlQuery = Q_S_DASHBOARD_2;
                 break;
+            case "6":
+                sqlQuery = Q_S_EXPORT;
+                break;
         }
         Connection con = getConnection();
         Statement s = null;
@@ -131,6 +149,10 @@ public class DataHandler {
                     case "4":
                         myModels.add(new MyModel(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
                                 rs.getString(5), rs.getString(6)));
+                        break;
+                    case "6":
+                        myModels.add(new MyModel(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                                rs.getString(5), rs.getString(6), rs.getString(7)));
                         break;
                     default:
                         myModels.add(new MyModel(rs.getString(1), rs.getString(2)));
@@ -152,6 +174,40 @@ public class DataHandler {
                 }
             } catch (SQLException ex) {
                 log.error("getDashboardData: " + ex.getMessage());
+            }
+        }
+        return myModels;
+    }
+
+    public static List<MyModel> getTempFileDashboardData() {
+        List<MyModel> myModels = new LinkedList<>();
+        String sqlQuery = Q_S_EXPORT;
+        Connection con = getConnection(PATH_TEMP_DB_ + ".tmp");
+        Statement s = null;
+        ResultSet rs = null;
+        try {
+            s = con.createStatement();
+            rs = s.executeQuery(sqlQuery);
+            while (rs.next()) {
+                myModels.add(new MyModel(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getString(6), rs.getString(7)));
+
+            }
+        } catch (Exception e) {
+            log.error("getTempFileDashboardData: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (s != null) {
+                    s.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                log.error("getTempFileDashboardData: " + ex.getMessage());
             }
         }
         return myModels;
@@ -753,7 +809,7 @@ public class DataHandler {
         return 0;
     }
 
-    public static boolean exportData(File file, String[] params) {
+    public static boolean exportData(Window window, File file, String[] params) {
         boolean status = false;
         try {
             switch (params[0]) {
@@ -761,7 +817,7 @@ public class DataHandler {
                     status = csvDownload(file, reportTableData);
                     break;
                 case "2":
-                    status = pdfDownload(file, reportTableData, params[1], params[2]);
+//                    status = pdfDownload(file, reportTableData, params[1], params[2]);
                     break;
             }
         } catch (Exception e) {
@@ -798,13 +854,11 @@ public class DataHandler {
         return false;
     }
 
-    public static boolean pdfDownload(File file, ObservableList<MyModelSimpleStringProperty> data, String reportType,
-            String boothNumber)
-            throws FileNotFoundException, JRException {
+    public static JasperPrint exportData(String... params) throws FileNotFoundException, JRException, Exception {
         //InputStream resourceAsStream = DataHandler.class.getResourceAsStream(PATH_REPORT_1);                
         Map parameters = new HashMap();
         InputStream resourceAsStream;
-        switch (reportType) {
+        switch (params[0]) {
             case "1":
                 parameters.put("parameter1", "अनु क्र.");
                 parameters.put("parameter2", "न्यू अनु क्र.");
@@ -820,10 +874,10 @@ public class DataHandler {
                 parameters.put("parameter12", "पत्ता");
 
                 parameters.put("reportName", "वय नुसार यादी");
-                parameters.put("wardNo", boothNumber);
+                parameters.put("wardNo", params[1]);
                 parameters.put("boothLabel", "मतदान केंद्रचे नाव:");
-                parameters.put("boothNumber", boothNumber);
-                parameters.put("boothName", getBoothName(boothNumber));
+                parameters.put("boothNumber", params[1]);
+                parameters.put("boothName", getBoothName(params[1]));
                 resourceAsStream = new FileInputStream(PATH_REPORT_1_);
                 break;
             case "3":
@@ -841,10 +895,10 @@ public class DataHandler {
                 parameters.put("parameter12", "रिमार्क");
 
                 parameters.put("reportName", "पत्ता नुसार यादी");
-                parameters.put("wardNo", boothNumber);
+                parameters.put("wardNo", params[1]);
                 parameters.put("boothLabel", "मतदान केंद्रचे नाव:");
-                parameters.put("boothNumber", boothNumber);
-                parameters.put("boothName", getBoothName(boothNumber));
+                parameters.put("boothNumber", params[1]);
+                parameters.put("boothName", getBoothName(params[1]));
                 resourceAsStream = new FileInputStream(PATH_REPORT_3_);
                 break;
             case "8":
@@ -862,10 +916,10 @@ public class DataHandler {
                 parameters.put("parameter12", "रंग रिमार्क");
 
                 parameters.put("reportName", "रंग नुसार यादी");
-                parameters.put("wardNo", boothNumber);
+                parameters.put("wardNo", params[1]);
                 parameters.put("boothLabel", "मतदान केंद्रचे नाव:");
-                parameters.put("boothNumber", boothNumber);
-                parameters.put("boothName", getBoothName(boothNumber));
+                parameters.put("boothNumber", params[1]);
+                parameters.put("boothName", getBoothName(params[1]));
                 resourceAsStream = new FileInputStream(PATH_REPORT_4_);
                 break;
             case "12":
@@ -878,10 +932,10 @@ public class DataHandler {
                 parameters.put("parameter7", "पत्ता");
 
                 parameters.put("reportName", "आडनाव नुसार यादी");
-                parameters.put("wardNo", boothNumber);
+                parameters.put("wardNo", params[1]);
                 parameters.put("boothLabel", "मतदान केंद्रचे नाव:");
-                parameters.put("boothNumber", boothNumber);
-                parameters.put("boothName", getBoothName(boothNumber));
+                parameters.put("boothNumber", params[1]);
+                parameters.put("boothName", getBoothName(params[1]));
                 resourceAsStream = new FileInputStream(PATH_REPORT_2_);
                 break;
             default:
@@ -898,16 +952,22 @@ public class DataHandler {
                 parameters.put("parameter11", "जन्म तारीख");
                 parameters.put("parameter12", "पत्ता");
                 parameters.put("reportName", "यादी");
-                parameters.put("wardNo", boothNumber);
+                parameters.put("wardNo", params[1]);
                 parameters.put("boothLabel", "मतदान केंद्रचे नाव:");
-                parameters.put("boothNumber", boothNumber);
-                parameters.put("boothName", getBoothName(boothNumber));
+                parameters.put("boothNumber", params[1]);
+                parameters.put("boothName", getBoothName(params[1]));
                 resourceAsStream = new FileInputStream(PATH_REPORT_1_);
                 break;
         }
-        JasperPrint jasperPrint = JasperFillManager.fillReport(resourceAsStream, parameters, getConnection());
-        JasperExportManager.exportReportToPdfFile(jasperPrint, file.getAbsolutePath());
-        return true;
+        return JasperFillManager.fillReport(resourceAsStream, parameters, getConnection());
+//        JasperExportManager.exportReportToPdfFile(jasperPrint, file.getAbsolutePath());
+////        JasperViewer jv = new JasperViewer(jasperPrint, false);
+////        jv.setTitle("PDF report");
+////        jv.setVisible(true);
+////        Stage primaryStage = JavaFXUtils.dialog(window);
+////        JRViewerFx viewer = new JRViewerFx(jasperPrint, JRViewerFxMode.REPORT_VIEW, primaryStage);
+////        viewer.start(primaryStage);
+//        return true;
     }
 
 }

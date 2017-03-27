@@ -53,7 +53,7 @@ public class DashboardReports extends Task<Void> {
             try {
                 root = loader.load();
                 ReportController reportController = loader.<ReportController>getController();
-                reportController.initReportDetails(reportDetails);
+                reportController.initReportDetails(reportDetails,"");
                 Scene scene = new Scene(root);
                 reportDetailsStage.setTitle(TITLE_ABOUT);
                 reportDetailsStage.setScene(scene);

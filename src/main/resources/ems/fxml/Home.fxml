@@ -15,290 +15,439 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane prefHeight="650.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ems.controller.HomeController">
-    <center>
-        <Pane style="-fx-background-color: white;" BorderPane.alignment="CENTER">
-            <children>
-                <AnchorPane fx:id="dashboard" layoutY="-3.0" prefHeight="515.0" prefWidth="1172.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <children>
-                        <Label layoutX="400.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="275.0" text="Ward Summary" AnchorPane.bottomAnchor="461.0" AnchorPane.leftAnchor="397.0" AnchorPane.rightAnchor="502.0">
-                            <font>
-                                <Font size="38.0" />
-                            </font>
-                        </Label>
-                        <PieChart fx:id="pieChart1" labelLineLength="10.0" labelsVisible="false" layoutX="654.0" layoutY="60.0" prefHeight="434.0" prefWidth="473.0" title="Color Wise" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="654.0" AnchorPane.rightAnchor="45.0" />
-                        <Label layoutX="68.0" layoutY="55.0" text="Ward No:">
-                            <font>
-                                <Font size="19.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="wardNumber" layoutX="68.0" layoutY="83.0" prefHeight="73.0" prefWidth="547.0" text="1">
-                            <font>
-                                <Font size="50.0" />
-                            </font>
-                        </Label>
-                        <Label layoutX="68.0" layoutY="163.0" text="Ward Name:">
-                            <font>
-                                <Font size="19.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="wardName" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="68.0" layoutY="204.0" prefHeight="169.0" prefWidth="547.0" text="Chandivali">
-                            <font>
-                                <Font size="50.0" />
-                            </font>
-                        </Label>
-                        <Label layoutX="68.0" layoutY="359.0" text="Total Booths:">
-                            <font>
-                                <Font size="19.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="boothNumber" layoutX="68.0" layoutY="415.0" prefHeight="73.0" prefWidth="547.0" text="1">
-                            <font>
-                                <Font size="50.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </AnchorPane>
-                <AnchorPane fx:id="dashboard1" prefHeight="515.0" prefWidth="1172.0" visible="false">
-                    <children>
-                        <Label layoutX="401.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="275.0" text="Voter Summary" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="401.0" AnchorPane.rightAnchor="494.0" AnchorPane.topAnchor="0.0">
-                            <font>
-                                <Font size="38.0" />
-                            </font>
-                        </Label>
-                        <PieChart fx:id="pieChart" labelLineLength="0.0" labelsVisible="false" layoutX="686.0" layoutY="56.0" prefHeight="429.0" prefWidth="430.0" title="Gender Wise" AnchorPane.rightAnchor="56.0" />
-                        <Label fx:id="votersCount" layoutX="59.0" layoutY="123.0" prefHeight="73.0" prefWidth="514.0" text="16742">
-                            <font>
-                                <Font name="System Bold" size="50.0" />
-                            </font>
-                        </Label>
-                        <Label layoutX="59.0" layoutY="71.0" text="Total Voters:">
-                            <font>
-                                <Font size="19.0" />
-                            </font>
-                        </Label>
-                        <BarChart fx:id="barChart" layoutX="23.0" layoutY="224.0" legendVisible="false" prefHeight="270.0" prefWidth="550.0" title="Community Wise">
-                            <xAxis>
-                                <CategoryAxis side="BOTTOM" fx:id="xAxis" />
-                            </xAxis>
-                            <yAxis>
-                                <NumberAxis side="LEFT" />
-                            </yAxis>
-                        </BarChart>
-                    </children>
-                </AnchorPane>
-                <AnchorPane fx:id="dashboard2" prefHeight="515.0" prefWidth="1172.0" visible="false">
-                    <children>
-                        <Label layoutX="415.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="343.0" text="Others">
-                            <font>
-                                <Font size="38.0" />
-                            </font>
-                        </Label>
-                        <ImageView fitHeight="179.0" fitWidth="382.0" layoutX="59.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../media/images/BirthdayCandels.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView fitHeight="205.0" fitWidth="332.0" layoutX="59.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../media/images/family.jpeg" />
-                            </image>
-                        </ImageView>
-                        <Label layoutX="356.0" layoutY="328.0" text="Total Families:">
-                            <font>
-                                <Font size="19.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="familyCount" layoutX="356.0" layoutY="363.0" prefHeight="73.0" prefWidth="221.0" text="16742">
-                            <font>
-                                <Font name="System Bold" size="50.0" />
-                            </font>
-                        </Label>
-                        <Label layoutX="356.0" layoutY="115.0" text="Total Birthdays Today:">
-                            <font>
-                                <Font size="19.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="birthdayCount" layoutX="356.0" layoutY="159.0" prefHeight="73.0" prefWidth="239.0" text="16742">
-                            <font>
-                                <Font name="System Bold" size="50.0" />
-                            </font>
-                        </Label>
-                        <PieChart fx:id="pieChart2" labelsVisible="false" layoutX="632.0" layoutY="45.0" prefHeight="426.0" prefWidth="500.0" title="Age Wise" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane fx:id="dashboard3" prefHeight="515.0" prefWidth="1172.0">
-                    <children>
-                        <Label layoutX="525.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="122.0" text="Details">
-                            <font>
-                                <Font size="38.0" />
-                            </font>
-                        </Label>
-                        <TableView fx:id="dashboardTable" onMouseClicked="#onDashboardTableClicked" layoutY="154.0" prefHeight="361.0" prefWidth="1172.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="154.0">
-                            <columns>
-                                <TableColumn fx:id="dashboardTableColumn1"  prefWidth="75.0" />
-                                <TableColumn fx:id="dashboardTableColumn2" prefWidth="75.0" />
-                                <TableColumn fx:id="dashboardTableColumn3" prefWidth="75.0" />
-                            </columns>
-                        </TableView>
-                        <Button onAction="#onDashboardGenderClick" fx:id="dashboardGender" layoutX="77.0" layoutY="90.0" mnemonicParsing="false" text="Gender Wise" />
-                        <Button onAction="#onDashboardAgeClick" fx:id="dashboardAge" layoutX="226.0" layoutY="90.0" mnemonicParsing="false" text="Age Wise" />
-                        <Button onAction="#onDashboardCommunityClick" fx:id="dashboardCommunity" layoutX="347.0" layoutY="90.0" mnemonicParsing="false" text="Community Wise" />
-                        <Button onAction="#onDashboardSurnameClick" fx:id="dashboardSurname" layoutX="525.0" layoutY="90.0" mnemonicParsing="false" text="Surname Wise" />
-                        <Button onAction="#onDashboardColorClick" fx:id="dashboardColor" layoutX="684.0" layoutY="90.0" mnemonicParsing="false" text="Color Wise" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane fx:id="electionHistory" layoutY="-2.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <children>
-                        <Label layoutX="435.0" layoutY="26.0" text="Ward No.:" />
-                        <ComboBox fx:id="wardNo" layoutX="520.0" layoutY="14.0" prefWidth="150.0" promptText="Choose Ward No." />
-                        <Button fx:id="electionHistoryGo" layoutX="520.0" layoutY="83.0" mnemonicParsing="false" onAction="#onElectionHistoryGoClick" text="Go" />
-                        <Button fx:id="electionHistoryClear" layoutX="595.0" layoutY="83.0" mnemonicParsing="false" onAction="#onElectionHistoryClearClick" text="Clear" />
-                        <TableView fx:id="electionHistoryTable" layoutY="150.0" prefHeight="355.0" prefWidth="1165.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="151.0">
-                            <columns>
-                                <TableColumn fx:id="electionHistoryColumn1" prefWidth="75.0" />
-                                <TableColumn fx:id="electionHistoryColumn2" prefWidth="75.0" />
-                                <TableColumn fx:id="electionHistoryColumn3" prefWidth="75.0" />
-                                <TableColumn fx:id="electionHistoryColumn4" prefWidth="75.0" />
-                            </columns>
-                        </TableView>
-                    </children>
-                </AnchorPane>
-                <AnchorPane fx:id="reports" visible="false" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="371.0" AnchorPane.topAnchor="-10.0">
-                    <children>
-                        <ComboBox fx:id="reportType" layoutX="371.0" layoutY="12.0" prefHeight="25.0" prefWidth="184.0" promptText="Choose Report" />
-                        <Label layoutX="282.0" layoutY="15.0" text="Report Type:" />
-                        <Label fx:id="boothNoLabel" layoutX="606.0" layoutY="14.0" text="Booth No.:" />
-                        <ComboBox fx:id="boothNo" layoutX="684.0" layoutY="11.0" prefHeight="25.0" prefWidth="184.0" promptText="Choose Booth No." />
-                        <Button fx:id="reportGo" layoutX="513.0" layoutY="103.0" mnemonicParsing="false" onAction="#onReportGoClick" styleClass="button-raised" text="Go" />
-                        <TableView fx:id="reportTable" layoutY="150.0" onMouseClicked="#onReportTableClicked" prefHeight="363.0" prefWidth="1115.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="150.0">
-                            <columns>
-                                <TableColumn fx:id="reportColumn1" prefWidth="75.0" />
-                                <TableColumn fx:id="reportColumn2" prefWidth="75.0" />
-                                <TableColumn fx:id="reportColumn3" prefWidth="75.0" />
-                                <TableColumn fx:id="reportColumn4" prefWidth="75.0" />
-                                <TableColumn fx:id="reportColumn5" prefWidth="75.0" />
-                                <TableColumn fx:id="reportColumn6" prefWidth="75.0" />
-                                <TableColumn fx:id="reportColumn7" prefWidth="75.0" />
-                                <TableColumn fx:id="reportColumn8" prefWidth="75.0" />
-                                <TableColumn fx:id="reportColumn9" prefWidth="75.0" />
-                                <TableColumn fx:id="reportColumn10" prefWidth="75.0" />
-                                <TableColumn fx:id="reportColumn11" prefWidth="75.0" />
-                            </columns>              
-                        </TableView>
-                        <Button fx:id="reportClear" layoutX="585.0" layoutY="103.0" mnemonicParsing="false" onAction="#onReportClearClick" styleClass="button-raised" text="Clear" />
-                        <Button fx:id="reportExportCSV" layoutX="1010.0" layoutY="103.0" mnemonicParsing="false" onAction="#onReportCSVDownload" styleClass="button-raised" text="CSV" />
-                        <Button fx:id="reportExportPDF" layoutX="857.0" layoutY="103.0" mnemonicParsing="false" onAction="#onReportPDFDownload" styleClass="button-raised" text="PDF" />
-                        <Label fx:id="fromAgeLabel" layoutX="282.0" layoutY="64.0" text="From Age:" visible="false" />
-                        <Label fx:id="toAgeLabel" layoutX="606.0" layoutY="64.0" text="To Age:" visible="false" />
-                        <TextField fx:id="fromAgeTextField" layoutX="371.0" layoutY="58.0" prefHeight="25.0" prefWidth="184.0" visible="false" />
-                        <TextField fx:id="toAgeTextField" layoutX="684.0" layoutY="54.0" prefHeight="25.0" prefWidth="184.0" visible="false" />
-                        <Label fx:id="monthLabel" layoutX="282.0" layoutY="63.0" text="Month:" visible="false" />
-                        <ComboBox fx:id="monthCombo" layoutX="371.0" layoutY="54.0" prefHeight="25.0" prefWidth="184.0" promptText="Choose Month" visible="false" />
-                        <Label fx:id="dateLabel" layoutX="282.0" layoutY="63.0" prefHeight="17.0" prefWidth="65.0" text="Date:" visible="false" />
-                        <DatePicker fx:id="datePicker" layoutX="371.0" layoutY="57.0" prefHeight="25.0" prefWidth="184.0" visible="false" />
-                        <Label fx:id="colorLabel" layoutX="282.0" layoutY="60.0" text="Color: " visible="false" />
-                        <ComboBox fx:id="colorCombo" layoutX="371.0" layoutY="54.0" prefHeight="25.0" prefWidth="184.0" promptText="Choose Color" visible="false" />
-                        <Button fx:id="reportExportExcel" layoutX="931.0" layoutY="103.0" mnemonicParsing="false" styleClass="button-raised" text="Excel" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane fx:id="voterSearchUpdate" visible="false" AnchorPane.bottomAnchor="-21.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="371.0" AnchorPane.topAnchor="0.0">
-                    <children>
-                        <RadioButton fx:id="radioName" layoutX="358.0" layoutY="14.0" mnemonicParsing="false" selected="true" text="Name" />
-                        <RadioButton fx:id="radioID" layoutX="472.0" layoutY="14.0" mnemonicParsing="false" text="ID Card No" />
-                        <RadioButton fx:id="radioSr" layoutX="602.0" layoutY="14.0" mnemonicParsing="false" text="Sr. No." />
-                        <Label fx:id="fNameLabel" layoutX="330.0" layoutY="75.0" text="First Name:" />
-                        <TextField fx:id="fNameTextField" layoutX="409.0" layoutY="71.0" />
-                        <Label fx:id="lNameLabel" layoutX="593.0" layoutY="75.0" text="Last Name:" />
-                        <TextField fx:id="lNameTextField" layoutX="668.0" layoutY="71.0" />
-                        <Label fx:id="IDLabel" layoutX="445.0" layoutY="73.0" text="ID Card No.:" visible="false" />
-                        <TextField fx:id="IDTextField" layoutX="534.0" layoutY="69.0" visible="false" />
-                        <Button fx:id="voterGo" layoutX="489.0" layoutY="117.0" mnemonicParsing="false" onAction="#onVoterGoClick" text="Go" />
-                        <Button fx:id="voterClear" layoutX="568.0" layoutY="117.0" mnemonicParsing="false" onAction="#onVoterClearClick" text="Clear" />
-                        <TableView fx:id="voterTable" layoutY="134.0" onMouseClicked="#onVoterTableClicked" prefHeight="355.0" prefWidth="1165.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="134.0">
-                            <columns>
-                                <TableColumn fx:id="voterColumn1" prefWidth="75.0" />
-                                <TableColumn fx:id="voterColumn2" prefWidth="75.0" />
-                                <TableColumn fx:id="voterColumn3" prefWidth="75.0" />
-                                <TableColumn fx:id="voterColumn4" prefWidth="75.0" />
-                                <TableColumn fx:id="voterColumn5" prefWidth="75.0" />
-                                <TableColumn fx:id="voterColumn6" prefWidth="75.0" />
-                                <TableColumn fx:id="voterColumn7" prefWidth="75.0" />
-                                <TableColumn fx:id="voterColumn8" prefWidth="75.0" />
-                                <TableColumn fx:id="voterColumn9" prefWidth="75.0" />
-                                <TableColumn fx:id="voterColumn10" prefWidth="75.0" />
-                                <TableColumn fx:id="voterColumn11" prefWidth="75.0" />
-                            </columns>
-                        </TableView>
-                    </children>
-                </AnchorPane>
-                <AnchorPane fx:id="statusUpdate" layoutY="-3.0" visible="false" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="371.0" AnchorPane.topAnchor="-3.0">
-                    <children>
-                        <TableView fx:id="statusUpdateTable" layoutY="110.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onStatusUpdateTableClicked" prefHeight="398.0" prefWidth="1163.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="110.0">
-                            <columns>
-                                <TableColumn fx:id="statusUpdateColumn1" prefWidth="75.0" />
-                                <TableColumn fx:id="statusUpdateColumn2" prefWidth="75.0" />
-                            </columns>
-                        </TableView>
-                        <ComboBox fx:id="statusUpdateReportCombo" layoutX="524.0" layoutY="32.0" prefWidth="150.0" promptText="Choose Report" />
-                        <Button fx:id="statusUpdateGo" layoutX="526.0" layoutY="93.0" mnemonicParsing="false" onAction="#onStatusUpdateGoClick" text="Go" />
-                        <Button fx:id="statusUpdateClear" layoutX="601.0" layoutY="93.0" mnemonicParsing="false" onAction="#onStatusUpdateClearClick" text="Clear" />
-                        <Label layoutX="412.0" layoutY="44.0" text="Report Type:" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane fx:id="importDB" layoutY="-2.0" prefHeight="515.0" prefWidth="1171.0" visible="false" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="371.0" AnchorPane.topAnchor="-2.0">
-                    <children>
-                        <Button fx:id="importDatabase" layoutX="529.0" layoutY="241.0" mnemonicParsing="false" onAction="#onImportDB" text="Import Database" />
-                    </children>
-                </AnchorPane>
-                <AnchorPane fx:id="exportDB" layoutY="-1.0" prefHeight="515.0" prefWidth="1172.0" visible="false" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="371.0" AnchorPane.topAnchor="6.0">
-                    <children>
-                        <Button fx:id="exportDatabase" layoutX="531.0" layoutY="240.0" mnemonicParsing="false" onAction="#onExportDB" text="Export Database" />
-                    </children>
-                </AnchorPane>
-            </children>
-        </Pane>
-    </center>
-    <top>
-        <VBox>
-            <children>
-                <MenuBar minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="1419.0">
-                    <menus>
-                        <Menu mnemonicParsing="false" text="File">
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#onCloseClick" text="Close" />
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Help">
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#onAboutClick" text="About" />
-                            </items>
-                        </Menu>
-                    </menus>
-                </MenuBar>
-                <HBox prefHeight="100.0" prefWidth="200.0">
-                    <children>
-                        <ImageView fx:id="homeImage" fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                            <HBox.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                            </HBox.margin>
-                        </ImageView>
-                        <Label fx:id="headerHome" alignment="CENTER" prefHeight="75.0" prefWidth="949.0" textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="32.0" />
-                            </font>
-                            <HBox.margin>
-                                <Insets left="50.0" top="15.0" />
-                            </HBox.margin>
-                        </Label>
-                    </children>
-                </HBox>
-            </children>
-        </VBox>
-    </top>
-    <left>
-        <TreeView fx:id="treeView" onMouseClicked="#onTreeViewClick" prefHeight="604.0" prefWidth="248.0" BorderPane.alignment="CENTER" />
-    </left>
-    <stylesheets>
-        <URL value="@../media/css/MyTheme.css" />
-    </stylesheets>
-</BorderPane>
+      <center>
+          <Pane style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+              <children>
+                  <AnchorPane fx:id="dashboard" layoutY="-3.0" prefHeight="515.0" prefWidth="1172.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                          <Label layoutX="400.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="275.0" text="Ward Summary" AnchorPane.bottomAnchor="461.0" AnchorPane.leftAnchor="397.0" AnchorPane.rightAnchor="502.0">
+                              <font>
+                                  <Font size="38.0" />
+                              </font>
+                          </Label>
+                          <PieChart fx:id="pieChart1" labelLineLength="10.0" labelsVisible="false" layoutX="654.0" layoutY="60.0" prefHeight="434.0" prefWidth="473.0" title="Color Wise" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="654.0" AnchorPane.rightAnchor="45.0" />
+                          <Label layoutX="68.0" layoutY="55.0" text="Ward No:">
+                              <font>
+                                  <Font size="19.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="wardNumber" layoutX="68.0" layoutY="83.0" prefHeight="73.0" prefWidth="547.0" text="1">
+                              <font>
+                                  <Font size="50.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="68.0" layoutY="163.0" text="Ward Name:">
+                              <font>
+                                  <Font size="19.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="wardName" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="68.0" layoutY="204.0" prefHeight="169.0" prefWidth="547.0" text="Chandivali">
+                              <font>
+                                  <Font size="50.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="68.0" layoutY="359.0" text="Total Booths:">
+                              <font>
+                                  <Font size="19.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="boothNumber" layoutX="68.0" layoutY="415.0" prefHeight="73.0" prefWidth="547.0" text="1">
+                              <font>
+                                  <Font size="50.0" />
+                              </font>
+                          </Label>
+                      </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="dashboard1" prefHeight="515.0" prefWidth="1172.0" visible="false">
+                      <children>
+                          <Label layoutX="401.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="275.0" text="Voter Summary" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="401.0" AnchorPane.rightAnchor="494.0" AnchorPane.topAnchor="0.0">
+                              <font>
+                                  <Font size="38.0" />
+                              </font>
+                          </Label>
+                          <PieChart fx:id="pieChart" labelLineLength="0.0" labelsVisible="false" layoutX="686.0" layoutY="56.0" prefHeight="429.0" prefWidth="430.0" title="Gender Wise" AnchorPane.rightAnchor="56.0" />
+                          <Label fx:id="votersCount" layoutX="59.0" layoutY="123.0" prefHeight="73.0" prefWidth="514.0" text="16742">
+                              <font>
+                                  <Font name="System Bold" size="50.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="59.0" layoutY="71.0" text="Total Voters:">
+                              <font>
+                                  <Font size="19.0" />
+                              </font>
+                          </Label>
+                          <BarChart fx:id="barChart" layoutX="23.0" layoutY="224.0" legendVisible="false" prefHeight="270.0" prefWidth="550.0" title="Community Wise">
+                              <xAxis>
+                                  <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                              </xAxis>
+                              <yAxis>
+                                  <NumberAxis side="LEFT" />
+                              </yAxis>
+                          </BarChart>
+                      </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="dashboard2" prefHeight="515.0" prefWidth="1172.0" visible="false">
+                      <children>
+                          <Label layoutX="415.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="343.0" text="Others">
+                              <font>
+                                  <Font size="38.0" />
+                              </font>
+                          </Label>
+                          <ImageView fitHeight="179.0" fitWidth="382.0" layoutX="59.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                  <Image url="@../media/images/BirthdayCandels.png" />
+                              </image>
+                          </ImageView>
+                          <ImageView fitHeight="205.0" fitWidth="332.0" layoutX="59.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                  <Image url="@../media/images/family.jpeg" />
+                              </image>
+                          </ImageView>
+                          <Label layoutX="356.0" layoutY="328.0" text="Total Families:">
+                              <font>
+                                  <Font size="19.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="familyCount" layoutX="356.0" layoutY="363.0" prefHeight="73.0" prefWidth="221.0" text="16742">
+                              <font>
+                                  <Font name="System Bold" size="50.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="356.0" layoutY="115.0" text="Total Birthdays Today:">
+                              <font>
+                                  <Font size="19.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="birthdayCount" layoutX="356.0" layoutY="159.0" prefHeight="73.0" prefWidth="239.0" text="16742">
+                              <font>
+                                  <Font name="System Bold" size="50.0" />
+                              </font>
+                          </Label>
+                          <PieChart fx:id="pieChart2" labelsVisible="false" layoutX="632.0" layoutY="45.0" prefHeight="426.0" prefWidth="500.0" title="Age Wise" />
+                      </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="dashboard3" prefHeight="515.0" prefWidth="1172.0" visible="false">
+                      <children>
+                          <Label layoutX="525.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="122.0" text="Details">
+                              <font>
+                                  <Font size="38.0" />
+                              </font>
+                          </Label>
+                          <TableView fx:id="dashboardTable" layoutY="154.0" onMouseClicked="#onDashboardTableClicked" prefHeight="361.0" prefWidth="1172.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="154.0">
+                              <columns>
+                                  <TableColumn fx:id="dashboardTableColumn1" prefWidth="75.0" />
+                                  <TableColumn fx:id="dashboardTableColumn2" prefWidth="75.0" />
+                                  <TableColumn fx:id="dashboardTableColumn3" prefWidth="75.0" />
+                              </columns>
+                          </TableView>
+                          <Button fx:id="dashboardGender" layoutX="77.0" layoutY="90.0" mnemonicParsing="false" onAction="#onDashboardGenderClick" text="Gender Wise" />
+                          <Button fx:id="dashboardAge" layoutX="226.0" layoutY="90.0" mnemonicParsing="false" onAction="#onDashboardAgeClick" text="Age Wise" />
+                          <Button fx:id="dashboardCommunity" layoutX="347.0" layoutY="90.0" mnemonicParsing="false" onAction="#onDashboardCommunityClick" text="Community Wise" />
+                          <Button fx:id="dashboardSurname" layoutX="525.0" layoutY="90.0" mnemonicParsing="false" onAction="#onDashboardSurnameClick" text="Surname Wise" />
+                          <Button fx:id="dashboardColor" layoutX="684.0" layoutY="90.0" mnemonicParsing="false" onAction="#onDashboardColorClick" text="Color Wise" />
+                      </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="electionHistory" layoutY="-2.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                          <Label layoutX="435.0" layoutY="26.0" text="Ward No.:" />
+                          <ComboBox fx:id="wardNo" layoutX="520.0" layoutY="14.0" prefWidth="150.0" promptText="Choose Ward No." />
+                          <Button fx:id="electionHistoryGo" layoutX="520.0" layoutY="83.0" mnemonicParsing="false" onAction="#onElectionHistoryGoClick" text="Go" />
+                          <Button fx:id="electionHistoryClear" layoutX="595.0" layoutY="83.0" mnemonicParsing="false" onAction="#onElectionHistoryClearClick" text="Clear" />
+                          <TableView fx:id="electionHistoryTable" layoutY="150.0" prefHeight="355.0" prefWidth="1165.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="151.0">
+                              <columns>
+                                  <TableColumn fx:id="electionHistoryColumn1" prefWidth="75.0" />
+                                  <TableColumn fx:id="electionHistoryColumn2" prefWidth="75.0" />
+                                  <TableColumn fx:id="electionHistoryColumn3" prefWidth="75.0" />
+                                  <TableColumn fx:id="electionHistoryColumn4" prefWidth="75.0" />
+                              </columns>
+                          </TableView>
+                      </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="reports" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="371.0" AnchorPane.topAnchor="-10.0">
+                      <children>
+                          <ComboBox fx:id="reportType" layoutX="371.0" layoutY="12.0" prefHeight="25.0" prefWidth="184.0" promptText="Choose Report" />
+                          <Label layoutX="282.0" layoutY="15.0" text="Report Type:" />
+                          <Label fx:id="boothNoLabel" layoutX="606.0" layoutY="14.0" text="Booth No.:" />
+                          <ComboBox fx:id="boothNo" layoutX="684.0" layoutY="11.0" prefHeight="25.0" prefWidth="184.0" promptText="Choose Booth No." />
+                          <Button fx:id="reportGo" layoutX="513.0" layoutY="103.0" mnemonicParsing="false" onAction="#onReportGoClick" styleClass="button-raised" text="Go" />
+                          <TableView fx:id="reportTable" layoutY="150.0" onMouseClicked="#onReportTableClicked" prefHeight="363.0" prefWidth="1115.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="150.0">
+                              <columns>
+                                  <TableColumn fx:id="reportColumn1" prefWidth="75.0" />
+                                  <TableColumn fx:id="reportColumn2" prefWidth="75.0" />
+                                  <TableColumn fx:id="reportColumn3" prefWidth="75.0" />
+                                  <TableColumn fx:id="reportColumn4" prefWidth="75.0" />
+                                  <TableColumn fx:id="reportColumn5" prefWidth="75.0" />
+                                  <TableColumn fx:id="reportColumn6" prefWidth="75.0" />
+                                  <TableColumn fx:id="reportColumn7" prefWidth="75.0" />
+                                  <TableColumn fx:id="reportColumn8" prefWidth="75.0" />
+                                  <TableColumn fx:id="reportColumn9" prefWidth="75.0" />
+                                  <TableColumn fx:id="reportColumn10" prefWidth="75.0" />
+                                  <TableColumn fx:id="reportColumn11" prefWidth="75.0" />
+                              </columns>              
+                          </TableView>
+                          <Button fx:id="reportClear" layoutX="585.0" layoutY="103.0" mnemonicParsing="false" onAction="#onReportClearClick" styleClass="button-raised" text="Clear" />
+                          <Button fx:id="reportExportPDF" layoutX="857.0" layoutY="103.0" mnemonicParsing="false" onAction="#onReportPDFDownload" styleClass="button-raised" text="Export" />
+                          <Label fx:id="fromAgeLabel" layoutX="282.0" layoutY="64.0" text="From Age:" visible="false" />
+                          <Label fx:id="toAgeLabel" layoutX="606.0" layoutY="64.0" text="To Age:" visible="false" />
+                          <TextField fx:id="fromAgeTextField" layoutX="371.0" layoutY="58.0" prefHeight="25.0" prefWidth="184.0" visible="false" />
+                          <TextField fx:id="toAgeTextField" layoutX="684.0" layoutY="54.0" prefHeight="25.0" prefWidth="184.0" visible="false" />
+                          <Label fx:id="monthLabel" layoutX="282.0" layoutY="63.0" text="Month:" visible="false" />
+                          <ComboBox fx:id="monthCombo" layoutX="371.0" layoutY="54.0" prefHeight="25.0" prefWidth="184.0" promptText="Choose Month" visible="false" />
+                          <Label fx:id="dateLabel" layoutX="282.0" layoutY="63.0" prefHeight="17.0" prefWidth="65.0" text="Date:" visible="false" />
+                          <DatePicker fx:id="datePicker" layoutX="371.0" layoutY="57.0" prefHeight="25.0" prefWidth="184.0" visible="false" />
+                          <Label fx:id="colorLabel" layoutX="282.0" layoutY="60.0" text="Color: " visible="false" />
+                          <ComboBox fx:id="colorCombo" layoutX="371.0" layoutY="54.0" prefHeight="25.0" prefWidth="184.0" promptText="Choose Color" visible="false" />
+                      </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="voterSearchUpdate" visible="false" AnchorPane.bottomAnchor="-21.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="371.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                          <RadioButton fx:id="radioName" layoutX="358.0" layoutY="14.0" mnemonicParsing="false" selected="true" text="Name" />
+                          <RadioButton fx:id="radioID" layoutX="472.0" layoutY="14.0" mnemonicParsing="false" text="ID Card No" />
+                          <RadioButton fx:id="radioSr" layoutX="602.0" layoutY="14.0" mnemonicParsing="false" text="Sr. No." />
+                          <Label fx:id="fNameLabel" layoutX="330.0" layoutY="75.0" text="First Name:" />
+                          <TextField fx:id="fNameTextField" layoutX="409.0" layoutY="71.0" />
+                          <Label fx:id="lNameLabel" layoutX="593.0" layoutY="75.0" text="Last Name:" />
+                          <TextField fx:id="lNameTextField" layoutX="668.0" layoutY="71.0" />
+                          <Label fx:id="IDLabel" layoutX="445.0" layoutY="73.0" text="ID Card No.:" visible="false" />
+                          <TextField fx:id="IDTextField" layoutX="534.0" layoutY="69.0" visible="false" />
+                          <Button fx:id="voterGo" layoutX="489.0" layoutY="117.0" mnemonicParsing="false" onAction="#onVoterGoClick" text="Go" />
+                          <Button fx:id="voterClear" layoutX="568.0" layoutY="117.0" mnemonicParsing="false" onAction="#onVoterClearClick" text="Clear" />
+                          <TableView fx:id="voterTable" layoutY="134.0" onMouseClicked="#onVoterTableClicked" prefHeight="355.0" prefWidth="1165.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="134.0">
+                              <columns>
+                                  <TableColumn fx:id="voterColumn1" prefWidth="75.0" />
+                                  <TableColumn fx:id="voterColumn2" prefWidth="75.0" />
+                                  <TableColumn fx:id="voterColumn3" prefWidth="75.0" />
+                                  <TableColumn fx:id="voterColumn4" prefWidth="75.0" />
+                                  <TableColumn fx:id="voterColumn5" prefWidth="75.0" />
+                                  <TableColumn fx:id="voterColumn6" prefWidth="75.0" />
+                                  <TableColumn fx:id="voterColumn7" prefWidth="75.0" />
+                                  <TableColumn fx:id="voterColumn8" prefWidth="75.0" />
+                                  <TableColumn fx:id="voterColumn9" prefWidth="75.0" />
+                                  <TableColumn fx:id="voterColumn10" prefWidth="75.0" />
+                                  <TableColumn fx:id="voterColumn11" prefWidth="75.0" />
+                              </columns>
+                          </TableView>
+                      </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="statusUpdate" layoutY="-3.0" visible="false" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="371.0" AnchorPane.topAnchor="-3.0">
+                      <children>
+                          <TableView fx:id="statusUpdateTable" layoutY="110.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onStatusUpdateTableClicked" prefHeight="398.0" prefWidth="1163.0" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="110.0">
+                              <columns>
+                                  <TableColumn fx:id="statusUpdateColumn1" prefWidth="75.0" />
+                                  <TableColumn fx:id="statusUpdateColumn2" prefWidth="75.0" />
+                              </columns>
+                          </TableView>
+                          <ComboBox fx:id="statusUpdateReportCombo" layoutX="524.0" layoutY="32.0" prefWidth="150.0" promptText="Choose Report" />
+                          <Button fx:id="statusUpdateGo" layoutX="526.0" layoutY="93.0" mnemonicParsing="false" onAction="#onStatusUpdateGoClick" text="Go" />
+                          <Button fx:id="statusUpdateClear" layoutX="601.0" layoutY="93.0" mnemonicParsing="false" onAction="#onStatusUpdateClearClick" text="Clear" />
+                          <Label layoutX="412.0" layoutY="44.0" text="Report Type:" />
+                      </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="importDB" prefHeight="515.0" prefWidth="1171.0" visible="false">
+                      <children>
+                          <Button fx:id="importDatabase" disable="true" layoutX="561.0" layoutY="434.0" mnemonicParsing="false" onAction="#onImportDB" text="Import Database" />
+                          <Label layoutX="32.0" layoutY="118.0" text="Total Voters:">
+                              <font>
+                                  <Font size="30.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="importLabel1" layoutX="300.0" layoutY="118.0" text="Label">
+                              <font>
+                                  <Font name="System Bold" size="30.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="32.0" layoutY="181.0" text="Mobile Numbers:">
+                              <font>
+                                  <Font size="30.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="32.0" layoutY="252.0" text="Email Id's:">
+                              <font>
+                                  <Font size="30.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="importLabel2" layoutX="300.0" layoutY="181.0" text="Label">
+                              <font>
+                                  <Font name="System Bold" size="30.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="importLabel3" layoutX="300.0" layoutY="252.0" text="Label">
+                              <font>
+                                  <Font name="System Bold" size="30.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="518.0" layoutY="118.0" text="Date of Birth:">
+                              <font>
+                                  <Font size="30.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="521.0" layoutY="181.0" text="Alt Mobile Numbers:">
+                              <font>
+                                  <Font size="30.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="521.0" layoutY="252.0" text="Color Codes:">
+                              <font>
+                                  <Font size="30.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="34.0" layoutY="320.0" text="Duplicate Voters:">
+                              <font>
+                                  <Font size="30.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="importLabel4" layoutX="300.0" layoutY="320.0" text="Label">
+                              <font>
+                                  <Font name="System Bold" size="30.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="importLabel7" layoutX="830.0" layoutY="245.0" text="Label">
+                              <font>
+                                  <Font name="System Bold" size="30.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="importLabel6" layoutX="830.0" layoutY="181.0" text="Label">
+                              <font>
+                                  <Font name="System Bold" size="30.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="importLabel5" layoutX="830.0" layoutY="118.0" text="Label">
+                              <font>
+                                  <Font name="System Bold" size="30.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="360.0" text="Import Data Summary">
+                              <font>
+                                  <Font size="40.0" />
+                              </font>
+                          </Label>
+                          <Button fx:id="importNewDatabase" layoutX="377.0" layoutY="434.0" mnemonicParsing="false" onAction="#onImportNewDatabase" text="Choose New Database" />
+                      </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="exportDB" layoutY="-1.0" prefHeight="515.0" prefWidth="1172.0" visible="false" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="371.0" AnchorPane.topAnchor="6.0">
+                      <children>
+                          <Button fx:id="exportDatabase" layoutX="469.0" layoutY="435.0" mnemonicParsing="false" onAction="#onExportDB" text="Export Database" />
+                          <Label layoutX="360.0" text="Backup Data Summary">
+                              <font>
+                                  <Font size="40.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="32.0" layoutY="118.0" text="Total Voters:">
+                              <font>
+                                  <Font size="30.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="exportLabel1" layoutX="300.0" layoutY="118.0" text="Label">
+                              <font>
+                                  <Font name="System Bold" size="30.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="32.0" layoutY="181.0" text="Mobile Numbers:">
+                              <font>
+                                  <Font size="30.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="32.0" layoutY="252.0" text="Email Id's:">
+                              <font>
+                                  <Font size="30.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="exportLabel2" layoutX="300.0" layoutY="181.0" text="Label">
+                              <font>
+                                  <Font name="System Bold" size="30.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="exportLabel3" layoutX="300.0" layoutY="252.0" text="Label">
+                              <font>
+                                  <Font name="System Bold" size="30.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="518.0" layoutY="118.0" text="Date of Birth:">
+                              <font>
+                                  <Font size="30.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="521.0" layoutY="181.0" text="Alt Mobile Numbers:">
+                              <font>
+                                  <Font size="30.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="521.0" layoutY="252.0" text="Color Codes:">
+                              <font>
+                                  <Font size="30.0" />
+                              </font>
+                          </Label>
+                          <Label layoutX="34.0" layoutY="320.0" text="Duplicate Voters:">
+                              <font>
+                                  <Font size="30.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="exportLabel4" layoutX="300.0" layoutY="320.0" text="Label">
+                              <font>
+                                  <Font name="System Bold" size="30.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="exportLabel7" layoutX="830.0" layoutY="245.0" text="Label">
+                              <font>
+                                  <Font name="System Bold" size="30.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="exportLabel6" layoutX="830.0" layoutY="181.0" text="Label">
+                              <font>
+                                  <Font name="System Bold" size="30.0" />
+                              </font>
+                          </Label>
+                          <Label fx:id="exportLabel5" layoutX="830.0" layoutY="118.0" text="Label">
+                              <font>
+                                  <Font name="System Bold" size="30.0" />
+                              </font>
+                          </Label>
+                      </children>
+                  </AnchorPane>
+              </children>
+          </Pane>
+      </center>
+      <top>
+          <VBox>
+              <children>
+                  <MenuBar minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="1419.0">
+                      <menus>
+                          <Menu mnemonicParsing="false" text="File">
+                              <items>
+                                  <MenuItem mnemonicParsing="false" onAction="#onCloseClick" text="Close" />
+                              </items>
+                          </Menu>
+                          <Menu mnemonicParsing="false" text="Help">
+                              <items>
+                                  <MenuItem mnemonicParsing="false" onAction="#onAboutClick" text="About" />
+                              </items>
+                          </Menu>
+                      </menus>
+                  </MenuBar>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                      <children>
+                          <ImageView fx:id="homeImage" fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                              <HBox.margin>
+                                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                              </HBox.margin>
+                          </ImageView>
+                          <Label fx:id="headerHome" alignment="CENTER" prefHeight="75.0" prefWidth="949.0" textFill="WHITE">
+                              <font>
+                                  <Font name="System Bold" size="32.0" />
+                              </font>
+                              <HBox.margin>
+                                  <Insets left="50.0" top="15.0" />
+                              </HBox.margin>
+                          </Label>
+                      </children>
+                  </HBox>
+              </children>
+          </VBox>
+      </top>
+      <left>
+          <TreeView fx:id="treeView" onMouseClicked="#onTreeViewClick" prefHeight="604.0" prefWidth="248.0" BorderPane.alignment="CENTER" />
+      </left>
+      <stylesheets>
+          <URL value="@../media/css/MyTheme.css" />
+      </stylesheets>
+  </BorderPane>

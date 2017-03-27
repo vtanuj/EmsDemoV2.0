@@ -9,6 +9,7 @@ import static ems.controller.HomeController.reportTableData;
 import static ems.main.Ems.log;
 import ems.model.MyModel;
 import ems.model.MyModelSimpleStringProperty;
+import ems.task.DownloadReport;
 import static ems.util.Constants.IMAGE_FAVICON;
 import static ems.util.Constants.TITLE_ABOUT;
 import ems.util.DataHandler;
@@ -18,12 +19,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -34,6 +37,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.controlsfx.control.table.TableFilter;
 import org.controlsfx.glyphfont.FontAwesome;
 
@@ -47,11 +51,7 @@ public class ReportController implements Initializable {
     List<MyModelSimpleStringProperty> reportDetails;
 
     @FXML
-    private Button reportExportCSV;
-    @FXML
-    private Button reportExportExcel;
-    @FXML
-    private Button reportExportPDF;
+    private Button export;
     @FXML
     private TableView<MyModelSimpleStringProperty> reportTable;
     @FXML
@@ -78,8 +78,11 @@ public class ReportController implements Initializable {
     private TableColumn reportColumn11;
     public static ObservableList<MyModelSimpleStringProperty> reportTableData = FXCollections.observableArrayList();
 
-    public void initReportDetails(List<MyModelSimpleStringProperty> reportDetails) {
+    String params[];
+
+    public void initReportDetails(List<MyModelSimpleStringProperty> reportDetails, String... params) {
         this.reportDetails = reportDetails;
+        this.params = params;
 
         reportTableData.clear();
         for (MyModelSimpleStringProperty reportDetail : reportDetails) {
@@ -92,9 +95,7 @@ public class ReportController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        reportExportCSV.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.FILE_EXCEL_ALT, 16, Color.GREEN));
-        reportExportPDF.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.FILE_PDF_ALT, 16, Color.RED));
-        reportExportExcel.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.FILE_EXCEL_ALT, 16, Color.GREEN));
+        export.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.FILE, 16, Color.DARKGREY));
 
         reportColumn1.setCellValueFactory(new PropertyValueFactory<>("obj1"));
         reportColumn2.setCellValueFactory(new PropertyValueFactory<>("obj2"));
@@ -158,4 +159,16 @@ public class ReportController implements Initializable {
 
     }
 
+    @FXML
+    private void onExportClick(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        Window window = source.getScene().getWindow();
+
+        Stage dialog = JavaFXUtils.dialog(window);
+        DownloadReport task = new DownloadReport(dialog, window, params);
+        new Thread(task).start();
+        JavaFXUtils.dim(window);
+        dialog.show();
+
+    }
 }

@@ -17,6 +17,7 @@ import ems.task.Dashboard;
 import ems.task.DashboardReports;
 import ems.task.DownloadReport;
 import ems.task.GetData;
+import ems.task.ImportDatabase;
 import ems.task.Reports;
 import static ems.util.Constants.COLORS;
 import ems.util.DataHandler;
@@ -52,6 +53,7 @@ import java.io.File;
 import java.util.LinkedList;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -76,6 +78,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import org.apache.commons.lang3.StringUtils;
+import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.table.TableFilter;
 import org.controlsfx.glyphfont.FontAwesome;
 
@@ -85,6 +88,9 @@ import org.controlsfx.glyphfont.FontAwesome;
  * @author tanujv
  */
 public class HomeController implements Initializable {
+
+    @FXML
+    MaskerPane maskerPane;
 
     @FXML
     private TableView<MyModelSimpleStringProperty> dashboardTable;
@@ -135,9 +141,11 @@ public class HomeController implements Initializable {
     @FXML
     private Button statusUpdateClear;
 
-    //Database Import
+    //Database Import 
     @FXML
     private AnchorPane importDB;
+    @FXML
+    private Button importNewDatabase;
     @FXML
     private Button importDatabase;
 
@@ -288,10 +296,6 @@ public class HomeController implements Initializable {
     @FXML
     private Button reportClear;
     @FXML
-    private Button reportExportCSV;
-    @FXML
-    private Button reportExportExcel;
-    @FXML
     private Button reportExportPDF;
     @FXML
     private ComboBox<MyModel> reportType;
@@ -324,6 +328,36 @@ public class HomeController implements Initializable {
     @FXML
     private TableColumn reportColumn11;
     public static ObservableList<MyModelSimpleStringProperty> reportTableData = FXCollections.observableArrayList();
+
+    @FXML
+    private Label exportLabel1;
+    @FXML
+    private Label exportLabel2;
+    @FXML
+    private Label exportLabel3;
+    @FXML
+    private Label exportLabel4;
+    @FXML
+    private Label exportLabel5;
+    @FXML
+    private Label exportLabel6;
+    @FXML
+    private Label exportLabel7;
+
+    @FXML
+    private Label importLabel1;
+    @FXML
+    private Label importLabel2;
+    @FXML
+    private Label importLabel3;
+    @FXML
+    private Label importLabel4;
+    @FXML
+    private Label importLabel5;
+    @FXML
+    private Label importLabel6;
+    @FXML
+    private Label importLabel7;
 
     int loadCounter1 = 0;
     int loadCounter2 = 0;
@@ -365,7 +399,7 @@ public class HomeController implements Initializable {
         electionHistoryClear.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.CLOSE, 16, Color.RED));
         exportDatabase.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.DATABASE, 16, Color.RED));
         importDatabase.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.DATABASE, 16, Color.RED));
-
+        importNewDatabase.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.DATABASE, 16, Color.GREEN));
         electionHistoryColumn1.setCellValueFactory(new PropertyValueFactory<>("obj1"));
         electionHistoryColumn2.setCellValueFactory(new PropertyValueFactory<>("obj2"));
         electionHistoryColumn3.setCellValueFactory(new PropertyValueFactory<>("obj3"));
@@ -455,9 +489,7 @@ public class HomeController implements Initializable {
 
         reportGo.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.CHECK, 16, Color.GREEN));
         reportClear.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.CLOSE, 16, Color.RED));
-        reportExportCSV.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.FILE_EXCEL_ALT, 16, Color.GREEN));
-        reportExportPDF.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.FILE_PDF_ALT, 16, Color.RED));
-        reportExportExcel.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.FILE_EXCEL_ALT, 16, Color.GREEN));
+        reportExportPDF.setGraphic(JavaFXUtils.getGraphic("FontAwesome", FontAwesome.Glyph.FILE, 16, Color.DARKGREY));
         //Set Image
         homeImage.setImage(new Image(IMAGE_LOGO));
         //Set Header
@@ -920,6 +952,7 @@ public class HomeController implements Initializable {
                     exportDB.setVisible(true);
                     importDB.setVisible(false);
                     statusUpdate.setVisible(false);
+                    getExportDataDetails();
                     break;
                 case "Database Import":
                     dashboard.setVisible(false);
@@ -932,6 +965,7 @@ public class HomeController implements Initializable {
                     exportDB.setVisible(false);
                     importDB.setVisible(true);
                     statusUpdate.setVisible(false);
+                    getImportDataDetails();
                     break;
                 case "Sync":
                     break;
@@ -1371,62 +1405,11 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    private void onReportCSVDownload(ActionEvent event) {
-        Node source = (Node) event.getSource();
-        Window window = source.getScene().getWindow();
-        String reportType = null, boothNo = null;
-        try {
-            reportType = this.reportType.getSelectionModel().getSelectedItem().getObj1();
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-        try {
-            boothNo = this.boothNo.getSelectionModel().getSelectedItem().getObj1();
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-        if (reportType == null || reportType.equals("0")) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Report Type not selected!");
-            alert.setContentText("Please choose a Report Type.");
-            alert.showAndWait();
-        } else if (reportTableData.isEmpty()) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("No data to export as CSV!");
-            alert.setContentText("Data not available for CSV export.");
-            alert.showAndWait();
-        } else {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save");
-            fileChooser.setInitialFileName(reportType + ".csv");
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
-            fileChooser.getExtensionFilters().add(extFilter);
-            File file = fileChooser.showSaveDialog(window);
-            dialog = JavaFXUtils.dialog(dialog, window);
-            DownloadReport task = new DownloadReport(dialog, window, file, "1", reportType, boothNo);
-            new Thread(task).start();
-            JavaFXUtils.dim(window);
-            dialog.show();
-        }
-    }
-
-    @FXML
     private void onReportPDFDownload(ActionEvent event) {
         Node source = (Node) event.getSource();
         Window window = source.getScene().getWindow();
-        String reportType = null, boothNo = null;
-        try {
-            reportType = this.reportType.getSelectionModel().getSelectedItem().getObj1();
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-        try {
-            boothNo = this.boothNo.getSelectionModel().getSelectedItem().getObj1();
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
+        String reportType = this.reportType.getSelectionModel() == null ? null : this.reportType.getSelectionModel().getSelectedItem().getObj1();
+        String boothNo = this.boothNo.getSelectionModel() == null ? null : this.boothNo.getSelectionModel().getSelectedItem().getObj1();
         if (reportType == null || reportType.equals("0")) {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Warning");
@@ -1440,14 +1423,8 @@ public class HomeController implements Initializable {
             alert.setContentText("Data not available for PDF export.");
             alert.showAndWait();
         } else {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save");
-            fileChooser.setInitialFileName(reportType + ".pdf");
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf");
-            fileChooser.getExtensionFilters().add(extFilter);
-            File file = fileChooser.showSaveDialog(window);
             dialog = JavaFXUtils.dialog(dialog, window);
-            DownloadReport task = new DownloadReport(dialog, window, file, "2", reportType, boothNo);
+            DownloadReport task = new DownloadReport(dialog, window, reportType, boothNo);
             new Thread(task).start();
             JavaFXUtils.dim(window);
             dialog.show();
@@ -1482,7 +1459,7 @@ public class HomeController implements Initializable {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ems/fxml/ReportDetails.fxml"));
                         Parent root = loader.load();
                         ReportController reportController = loader.<ReportController>getController();
-                        reportController.initReportDetails(reportDetails);
+                        reportController.initReportDetails(reportDetails, reportType, boothNo, m.getObj1());
                         Scene scene = new Scene(root);
                         reportDetailsStage.setTitle(TITLE_ABOUT);
                         reportDetailsStage.setScene(scene);
@@ -1735,6 +1712,50 @@ public class HomeController implements Initializable {
     }
 
     @FXML
+    private void onImportNewDatabase(ActionEvent event) {
+        Node source = (Node) event.getSource();
+        final Window window = source.getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Database files (*.db)", "*.db");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(window);
+
+        maskerPane.setVisible(true);
+        ImportDatabase task = new ImportDatabase(file);
+        task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent t) {
+                try {
+                    boolean status = task.getValue();
+                    if (status) {
+                        MyModel importDataDetails = DataHandler.getTempFileDashboardData().get(0);
+                        importLabel1.setText(importDataDetails.getObj1());
+                        importLabel2.setText(importDataDetails.getObj2());
+                        importLabel3.setText(importDataDetails.getObj3());
+                        importLabel4.setText(importDataDetails.getObj4());
+                        importLabel5.setText(importDataDetails.getObj5());
+                        importLabel6.setText(importDataDetails.getObj6());
+                        importLabel7.setText(importDataDetails.getObj7());
+                        importDatabase.setDisable(false);
+                    } else {
+                        Alert alert = new Alert(AlertType.WARNING);
+                        alert.setTitle("Warning");
+                        alert.setHeaderText("Unable to import!");
+                        alert.setContentText("Either the file is corrupted or invalid Database.");
+                        alert.showAndWait();
+                    }
+//                    maskerPane.setVisible(false);
+                } catch (Exception e) {
+                    log.error(e.getMessage());
+                }
+            }
+        });
+        new Thread(task).start();
+    }
+
+    @FXML
+
     private void onImportDB(ActionEvent event) {
         Node source = (Node) event.getSource();
         Window window = source.getScene().getWindow();
@@ -1944,5 +1965,26 @@ public class HomeController implements Initializable {
                 JavaFXUtils.exceptionDialog(ex);
             }
         }
+    }
+
+    public void getExportDataDetails() {
+        MyModel exportDataDetails = DataHandler.getDashboardData("6").get(0);
+        exportLabel1.setText(exportDataDetails.getObj1());
+        exportLabel2.setText(exportDataDetails.getObj2());
+        exportLabel3.setText(exportDataDetails.getObj3());
+        exportLabel4.setText(exportDataDetails.getObj4());
+        exportLabel5.setText(exportDataDetails.getObj5());
+        exportLabel6.setText(exportDataDetails.getObj6());
+        exportLabel7.setText(exportDataDetails.getObj7());
+    }
+
+    public void getImportDataDetails() {
+        importLabel1.setText("");
+        importLabel2.setText("");
+        importLabel3.setText("");
+        importLabel4.setText("");
+        importLabel5.setText("");
+        importLabel6.setText("");
+        importLabel7.setText("");
     }
 }

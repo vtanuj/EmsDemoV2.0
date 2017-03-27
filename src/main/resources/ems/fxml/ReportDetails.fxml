@@ -7,10 +7,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="ems.controller.ReportController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ems.controller.ReportController">
     <children>
-        <TableView fx:id="reportTable" onMouseClicked="#onReportDetailsTableClicked" layoutY="52.0" prefHeight="548.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0">
+        <TableView fx:id="reportTable" layoutY="52.0" onMouseClicked="#onReportDetailsTableClicked" prefHeight="548.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="52.0">
             <columns>          
                 <TableColumn fx:id="reportColumn1" prefWidth="75.0" />
                 <TableColumn fx:id="reportColumn2" prefWidth="75.0" />
@@ -25,9 +24,7 @@
                 <TableColumn fx:id="reportColumn11" prefWidth="75.0" />
             </columns>
         </TableView>
-        <Button fx:id="reportExportCSV" layoutX="220.0" layoutY="14.0" mnemonicParsing="false" text="CSV" />
-        <Button fx:id="reportExportExcel" layoutX="320.0" layoutY="14.0" mnemonicParsing="false" text="Excel" />
-        <Button fx:id="reportExportPDF" layoutX="420.0" layoutY="14.0" mnemonicParsing="false" text="PDF" />
+        <Button fx:id="export" layoutX="220.0" layoutY="14.0" mnemonicParsing="false" onAction="#onExportClick" text="Export" />
     </children>
    <stylesheets>
       <URL value="@../media/css/MyTheme.css" />
